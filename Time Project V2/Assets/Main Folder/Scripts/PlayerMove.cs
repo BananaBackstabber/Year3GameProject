@@ -17,6 +17,7 @@ public class PlayerMove : MonoBehaviour
     public float jump_Force = 10f;
     private float vertical_velocity;
 
+    public PRewind Rewind;
     private void Awake()
     {
         Character_Controller = GetComponent<CharacterController>();
@@ -29,15 +30,28 @@ public class PlayerMove : MonoBehaviour
     }
     void MoveThePlayer()
     {
-        //Axis.Horizontal and vertical are from the player helper script
-        move_direction = new Vector3(Input.GetAxis(Axis.HORIZONTAL), 0f,
-                                     Input.GetAxis(Axis.VERTICAL));
-        move_direction = transform.TransformDirection(move_direction);
-        move_direction *= speed * Time.deltaTime;
 
-        ApplyGravity();
+        if (Rewind.isRewinding == true) 
+        {
+            Debug.Log("N/G");
+            NoGraivity();
+           
+        }
+        else if (Rewind.isRewinding == false) 
+        {
+            Debug.Log("Y/G");
 
-        Character_Controller.Move(move_direction);
+            //Axis.Horizontal and vertical are from the player helper script
+            move_direction = new Vector3(Input.GetAxis(Axis.HORIZONTAL), 0f,
+                                         Input.GetAxis(Axis.VERTICAL));
+            move_direction = transform.TransformDirection(move_direction);
+            move_direction *= speed * Time.deltaTime;
+
+            ApplyGravity();
+            Character_Controller.Move(move_direction);
+        }
+
+        
 
     }
 
@@ -51,6 +65,11 @@ public class PlayerMove : MonoBehaviour
       
         //gravity while moving
         move_direction.y = vertical_velocity * Time.deltaTime;
+    }
+
+    void NoGraivity() 
+    {
+        vertical_velocity = 0;
     }
 
     void PlayerJump()

@@ -14,13 +14,13 @@ public class AIMove : MonoBehaviour
     
     //Gun stats
     public float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
-    public int magazineSize, bulletsPerTap;
-    public bool allowButtonHold;
+    //public int magazineSize, bulletsPerTap;
+    //public bool allowButtonHold;
 
-    int bulletsLeft, bulletShot;
+    //int bulletsLeft, bulletShot;
 
     //bools
-    bool shooting, readyToShoot, reloading;
+    bool readyToShoot;
 
     //Refrences
     public Camera fpsCam;
@@ -44,6 +44,7 @@ public class AIMove : MonoBehaviour
 
     //Attacking 
     public float timeBetweenAttacks;
+    public float DefualtAttackTime;
     bool alreadyAttacked;
     public float TimeSlow;
     //States
@@ -53,6 +54,8 @@ public class AIMove : MonoBehaviour
     // time stop
 
     private TimeManager timemanager;
+
+    public float Speed;
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
@@ -68,12 +71,15 @@ public class AIMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        Debug.Log("Agent Velocity" + agent.acceleration);
+        Debug.Log("Agent Speed" + agent.speed);
         // if Time Is not stopped then
         if (!timemanager.TimeIsStopped)
         {
-            Debug.Log("TimeOff");
-            timeBetweenAttacks = 0.2f;
-            agent.speed = 20;
+            //Debug.Log("TimeOff");
+            timeBetweenAttacks = DefualtAttackTime;
+            agent.speed = Speed;
 
             agent.SetDestination(player.transform.position);  //go to player
 
@@ -86,9 +92,10 @@ public class AIMove : MonoBehaviour
         // if time is stopped then
         if (timemanager.TimeIsStopped)
         {
-            Debug.Log("TimeOn");
+            //Debug.Log("TimeOn");
             agent.speed *= TimeSlow;
-            agent.velocity *= TimeSlow; // stop moving
+            agent.velocity *= TimeSlow;
+            agent.acceleration *= TimeSlow; // stop moving
             //agent.updateRotation = false;
             //Debug.Log("STOPPED");
             timeBetweenAttacks = 3;

@@ -13,10 +13,14 @@ public class TimeStop : MonoBehaviour
     private float TimeBeforeAffectedTimer;
     private bool CanBeAffected;
     public bool IsStopped;
+
+   
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+                
         timemanager = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
         TimeBeforeAffectedTimer = TimeBeforeAffected;
     }
@@ -41,8 +45,9 @@ public class TimeStop : MonoBehaviour
                 recordedMagnitude = rb.velocity.magnitude; // records magitude of movement
 
                 rb.velocity *= 0.1f; //makes the rigidbody stop moving
-                rb.isKinematic = false; //not affected by forces
+                //rb.isKinematic = false; //not affected by forces
                 IsStopped = true; // prevents this from looping
+                
             }
         }
 
@@ -50,8 +55,10 @@ public class TimeStop : MonoBehaviour
     public void ContinueTime()
     {
         Debug.Log("Continue Time NOW");
-        rb.isKinematic = false;
+        //rb.isKinematic = false;
         IsStopped = false;
         rb.velocity = recordedVelocity * recordedMagnitude; //Adds back the recorded velocity when time continues
+
+        
     }
 }

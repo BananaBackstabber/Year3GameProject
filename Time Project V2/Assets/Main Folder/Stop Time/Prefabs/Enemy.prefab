@@ -484,9 +484,6 @@ MonoBehaviour:
   spread: 2
   reloadTime: 0
   timeBetweenShots: 5
-  magazineSize: 100
-  bulletsPerTap: 1
-  allowButtonHold: 0
   fpsCam: {fileID: 9064520151778302317}
   attackPoint: {fileID: 7661624256991627229}
   agent: {fileID: 2914381755708210424}
@@ -499,12 +496,14 @@ MonoBehaviour:
     m_Bits: 8
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
-  timeBetweenAttacks: 0.5
+  timeBetweenAttacks: 1
+  DefualtAttackTime: 0.7
   TimeSlow: 0
-  sightRange: 40
-  attackRange: 30
+  sightRange: 15
+  attackRange: 15
   playerInSightRange: 0
   playerInAttackRange: 0
+  Speed: 0
 --- !u!195 &2914381755708210424
 NavMeshAgent:
   m_ObjectHideFlags: 0
