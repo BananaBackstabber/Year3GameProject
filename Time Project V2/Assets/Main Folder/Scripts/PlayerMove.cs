@@ -13,11 +13,12 @@ public class PlayerMove : MonoBehaviour
 
     public float speed = 5f;
     private float gravity = 20f;
+    public float max_gravity;
 
     public float jump_Force = 10f;
     private float vertical_velocity;
 
-    public PRewind Rewind;
+    public TimeManager Rewind;
     private void Awake()
     {
         Character_Controller = GetComponent<CharacterController>();
@@ -27,19 +28,21 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         MoveThePlayer();
+
+        //Debug.Log("Vertical speed = " + vertical_velocity);
     }
     void MoveThePlayer()
     {
 
         if (Rewind.isRewinding == true) 
         {
-            Debug.Log("N/G");
+            //Debug.Log("N/G");
             NoGraivity();
            
         }
         else if (Rewind.isRewinding == false) 
         {
-            Debug.Log("Y/G");
+          
 
             //Axis.Horizontal and vertical are from the player helper script
             move_direction = new Vector3(Input.GetAxis(Axis.HORIZONTAL), 0f,
@@ -57,14 +60,30 @@ public class PlayerMove : MonoBehaviour
 
     void ApplyGravity() 
     {
-      
-      vertical_velocity -= gravity * Time.deltaTime;
+        if (Character_Controller.isGrounded)
+        { 
 
-    //MoveToJump
-    PlayerJump();
-      
+           vertical_velocity -= gravity * Time.deltaTime;
+
+            //MoveToJump
+            PlayerJump();
+        }
+      else 
+        {
+            //Is calculates the gravity fall speed
+            vertical_velocity -= gravity * Time.deltaTime;
+        }
+
+
         //gravity while moving
         move_direction.y = vertical_velocity * Time.deltaTime;
+
+
+        if(vertical_velocity <= max_gravity) 
+        {
+            vertical_velocity = max_gravity;
+        }
+
     }
 
     void NoGraivity() 

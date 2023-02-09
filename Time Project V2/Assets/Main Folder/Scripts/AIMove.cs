@@ -29,7 +29,7 @@ public class AIMove : MonoBehaviour
     //Attack Code end 
 
     //scripts
-    private TimeBody timeIsStopped;
+    private TimeBody TimeIsSlow;
 
     public NavMeshAgent agent;
 
@@ -47,6 +47,7 @@ public class AIMove : MonoBehaviour
     public float DefualtAttackTime;
     bool alreadyAttacked;
     public float TimeSlow;
+    public float TimeStop;
     //States
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
@@ -72,10 +73,11 @@ public class AIMove : MonoBehaviour
     void Update()
     {
 
-        Debug.Log("Agent Velocity" + agent.acceleration);
-        Debug.Log("Agent Speed" + agent.speed);
+       // Debug.Log("Agent Velocity" + agent.acceleration);
+       //Debug.Log("Agent Speed" + agent.speed);
+
         // if Time Is not stopped then
-        if (!timemanager.TimeIsStopped)
+        if (!timemanager.TimeIsSlow)
         {
             //Debug.Log("TimeOff");
             timeBetweenAttacks = DefualtAttackTime;
@@ -89,8 +91,9 @@ public class AIMove : MonoBehaviour
                 
             }
         }
-        // if time is stopped then
-        if (timemanager.TimeIsStopped)
+
+        // if time is slow then
+        if (timemanager.TimeIsSlow)
         {
             //Debug.Log("TimeOn");
             agent.speed *= TimeSlow;
@@ -99,6 +102,20 @@ public class AIMove : MonoBehaviour
             //agent.updateRotation = false;
             //Debug.Log("STOPPED");
             timeBetweenAttacks = 3;
+        }
+
+        // if time is reversed then
+        if(timemanager.isRewinding)
+        {
+            //Debug.Log("TimeOn");
+            agent.speed *= TimeStop;
+            agent.velocity *= TimeStop;
+            agent.acceleration *= TimeStop; // stop moving
+            //agent.updateRotation = false;
+            //Debug.Log("STOPPED");
+            timeBetweenAttacks = 0;
+
+
         }
         
         
@@ -148,7 +165,7 @@ public class AIMove : MonoBehaviour
     {
         
             agent.SetDestination(player.position);
-             //Debug.Log("CHASING PLAYER");
+             Debug.Log("CHASING PLAYER");
            // Debug.Log("Off Sight =" + sightRange);
        
 
@@ -168,7 +185,7 @@ public class AIMove : MonoBehaviour
 
             shoot();
 
-            //Debug.Log("PlayerIsAttacked");
+            Debug.Log("PlayerIsAttacked");
 
             alreadyAttacked = true;
             Invoke(nameof(resetAttack), timeBetweenAttacks);

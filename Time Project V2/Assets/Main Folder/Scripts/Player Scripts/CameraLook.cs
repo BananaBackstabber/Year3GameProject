@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CameraLook : MonoBehaviour
 {
+    public TimeManager timemanager;
+
+
     [SerializeField]
     private Transform playerRoot, lookRoot;
 
@@ -44,17 +47,29 @@ public class CameraLook : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        LockAndUnlockCursor();
-        // when mouse is locked you can look around
-        if(Cursor.lockState == CursorLockMode.Locked)
+        
+        // If the reverse time power is active you can not look around
+        if (timemanager.isRewinding == false)
         {
-            LookAround();
+            Cursor.lockState = CursorLockMode.Locked;
+            LockAndUnlockCursor();
+            // when mouse is locked you can look around
+            if (Cursor.lockState == CursorLockMode.Locked)
+            {
+                LookAround();
+            }
+
+        }
+        else 
+        {
+            //Code here need to either reset the mouse rotation after player has rewinded
+            //Or record the mouse rotation when rewinding and replace when player has stopped rewinding
         }
     }
 
