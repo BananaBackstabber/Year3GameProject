@@ -53,17 +53,19 @@ public class CameraLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        Cursor.lockState = CursorLockMode.Locked;
+        LockAndUnlockCursor();
+        // when mouse is locked you can look around
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            LookAround();
+        }
+
         // If the reverse time power is active you can not look around
         if (timemanager.isRewinding == false)
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            LockAndUnlockCursor();
-            // when mouse is locked you can look around
-            if (Cursor.lockState == CursorLockMode.Locked)
-            {
-                LookAround();
-            }
+           
 
         }
         else 

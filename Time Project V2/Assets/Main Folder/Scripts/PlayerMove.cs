@@ -34,15 +34,21 @@ public class PlayerMove : MonoBehaviour
     void MoveThePlayer()
     {
 
+        
+
         if (Rewind.isRewinding == true) 
         {
             //Debug.Log("N/G");
             NoGraivity();
-           
+
+
+            Debug.Log("On");
+
         }
         else if (Rewind.isRewinding == false) 
         {
-          
+
+            Debug.Log("off");
 
             //Axis.Horizontal and vertical are from the player helper script
             move_direction = new Vector3(Input.GetAxis(Axis.HORIZONTAL), 0f,

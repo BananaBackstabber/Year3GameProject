@@ -18,6 +18,9 @@ public class PRewind : MonoBehaviour
     public Material timeMat;
 
     public float recordTime = 5f;
+
+    private bool toggle;
+
     void Start()
     {
         pointsInTime = new List<PointInTime>();
@@ -27,10 +30,8 @@ public class PRewind : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && TimeManager.cooldown == false)
-            StartRewind();
-        if (Input.GetKeyUp(KeyCode.Return))
-            StopRewind();
+        if (Input.GetKeyDown("e") && TimeManager.cooldown == false && TimeManager.TimeIsSlow == false)
+            toggletime();
     }
 
     private void FixedUpdate()
@@ -39,6 +40,22 @@ public class PRewind : MonoBehaviour
             Rewind();
         else
             Record();
+
+    }
+
+    void toggletime()
+    {
+        toggle = !toggle;
+
+        if (toggle)
+        {
+            StartRewind();
+        }
+        else
+        {
+            StopRewind();
+        }
+
 
     }
 

@@ -13,7 +13,7 @@ public class TimeStopAnimtor : MonoBehaviour
     public Animator slowTime;
     public float SlowSpeed;
     public float NormalSpeed;
-
+    public float StopSpeed;
 
 
     // Start is called before the first frame update
@@ -38,6 +38,11 @@ public class TimeStopAnimtor : MonoBehaviour
 
             slowTime.speed = SlowSpeed;
            
+        }
+        else if(CanBeAffected && timemanager.isRewinding && !IsStopped)
+        {
+
+            slowTime.speed = StopSpeed;
         }
         else 
         {

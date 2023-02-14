@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 3402902857218628344}
   - component: {fileID: 2567645609600940675}
   - component: {fileID: 6902181664996396789}
-  - component: {fileID: -4381091369744954414}
   m_Layer: 10
   m_Name: Cube Bullet
   m_TagString: Untagged
@@ -99,8 +98,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 0.40197566}
+  m_Center: {x: 0, y: 0, z: 0.29900634}
 --- !u!54 &8042377943106350479
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -160,21 +159,6 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 5f75221875469ce409decb616b308e2f, type: 2}
---- !u!114 &-4381091369744954414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1663351979284790571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fdb36d0264a70a40908e87cf2b19a12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player_rewind: {fileID: 357847454, guid: 39fb36cd8b6af53439bacead2acb03a1, type: 3}
-  TimeBeforeAffected: 0
-  IsStopped: 0
 --- !u!1 &9153377460517380956
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,5 +252,5 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: -0.0000076293945, z: 0.000003814697}
+  m_Radius: 0.35481188
+  m_Center: {x: -0.025051031, y: 0.0033645667, z: 0.0000038062187}

@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using System.Linq;
+using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
     //Access the Script for the UI 
-    public TimeAndHealthUI UI;
+    public TimeAndHealthUI DrainBar;
 
     [SerializeField] private ForwardRendererData rendererData = null;
     [SerializeField] private string featureName = null;
@@ -28,13 +29,18 @@ public class TimeManager : MonoBehaviour
     public float TimeGauge = 5f;
     public float SlowTimeDrain;
     public float RewindTimeDrain;
+    public float FastTimeDrain;
     public float TimePowersRecharge;
     //On screen effect
     public Material timeMat;
     //public Renderer Mrenderer;
-    public Gradient gradient;
-    private GradientColorKey[] colorKey;
-    private GradientAlphaKey[] alphaKeys;
+
+    public Image TimeSlowImage;
+    //
+    public Image TimeReverseImage;
+
+    public Image FastTimeImage;
+
 
     private void Start()
     {
@@ -43,9 +49,17 @@ public class TimeManager : MonoBehaviour
         timeMat.color = Color.black;
 
         //Sets the UI Time Gauage bar to equal the value it is currently at
-        UI.SetTimeGauge(TimeGauge);
+        DrainBar.SetTimeGauge(TimeGauge);
 
-        
+        //PNG Image is false
+        TimeSlowImage.enabled = false;
+
+        TimeReverseImage.enabled = false;
+
+        FastTimeImage.enabled = false;
+
+
+
     }
     public void ContinueTime()
     {
@@ -73,40 +87,42 @@ public class TimeManager : MonoBehaviour
     {
         //Debug.Log("TimeGuage = " + TimeGauge);
         //Debug.Log("Cooldown = " + cooldown);
-        UI.SetTimeGauge(TimeGauge);
+        DrainBar.SetTimeGauge(TimeGauge);
 
         if (TimeGauge <= 1.5) 
         {
-            UI.fill.color = Color.red;
+            DrainBar.fill.color = Color.red;
         
         }
         // If Time Gauge equals max then turn the bar green
 
         if (TimeGauge <= 4.9)
         {
-            UI.fill.color = Color.blue;
+            DrainBar.fill.color = Color.blue;
 
         }
 
         if (TimeGauge == 5) 
         {
 
-            UI.fill.color = Color.green;
+            DrainBar.fill.color = Color.green;
         }
         // If cooldown is active turn the bar grey to show it is inactive
 
         if (cooldown == true) 
         {
-            UI.fill.color = Color.grey;
+            DrainBar.fill.color = Color.grey;
         
         }
 
-        if (TimeIsSlow == true) 
+          // If slow time is active and reverse tie is not active 
+        if (TimeIsSlow == true && isRewinding == false) 
         {
-
-            TimeGauge -= SlowTimeDrain * Time.deltaTime;
             // drain 1 form the variable every one second
-
+            TimeGauge -= SlowTimeDrain * Time.deltaTime;
+            
+            //Image will appears as on Screen UI when slowtimepower is active
+            TimeSlowImage.enabled = true;
         }
 
         if (isRewinding == true)
@@ -114,13 +130,15 @@ public class TimeManager : MonoBehaviour
 
             TimeGauge -= RewindTimeDrain * Time.deltaTime;
             // drain 1 form the variable every one second
+            TimeReverseImage.enabled = true;
 
         }
 
         if (isfast == true) 
         {
-            TimeGauge -= SlowTimeDrain * Time.deltaTime;
-        
+            TimeGauge -= FastTimeDrain * Time.deltaTime;
+            //Debug.Log("ISfast is active" + TimeGauge);
+            FastTimeImage.enabled = true;
         }
 
         //Cooldown actives player can not use time powers while cooldown is active
@@ -136,9 +154,12 @@ public class TimeManager : MonoBehaviour
             cooldown = false;
         }
 
-        if (TimeIsSlow == false && isRewinding == false) 
+        if (TimeIsSlow == false && isRewinding == false && isfast == false) 
         {
             TimeGauge += TimePowersRecharge * Time.deltaTime;
+            TimeSlowImage.enabled = false;
+            TimeReverseImage.enabled = false;
+            FastTimeImage.enabled = false;
         }
 
         if(TimeGauge >= 5) 

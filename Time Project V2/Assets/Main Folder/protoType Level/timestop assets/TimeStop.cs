@@ -9,7 +9,6 @@ public class TimeStop : MonoBehaviour
     private Rigidbody rb;
     private Vector3 recordedVelocity;
     private float recordedMagnitude;
-
     private float TimeBeforeAffectedTimer;
     private bool CanBeAffected;
     public bool IsStopped;
@@ -54,8 +53,8 @@ public class TimeStop : MonoBehaviour
     }
     public void ContinueTime()
     {
-        Debug.Log("Continue Time NOW");
-        //rb.isKinematic = false;
+        
+        
         IsStopped = false;
         rb.velocity = recordedVelocity * recordedMagnitude; //Adds back the recorded velocity when time continues
 

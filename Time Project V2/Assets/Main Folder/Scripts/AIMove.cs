@@ -73,33 +73,30 @@ public class AIMove : MonoBehaviour
     void Update()
     {
 
-       // Debug.Log("Agent Velocity" + agent.acceleration);
-       //Debug.Log("Agent Speed" + agent.speed);
+        //Debug.Log("Agent Velocity" + agent.velocity);
+        //Debug.Log("Agent acceleration" + agent.acceleration);
+
+
 
         // if Time Is not stopped then
-        if (!timemanager.TimeIsSlow)
+        if (!timemanager.TimeIsSlow && !timemanager.isRewinding)
         {
             //Debug.Log("TimeOff");
             timeBetweenAttacks = DefualtAttackTime;
             agent.speed = Speed;
+            //agent.velocity = agent.velocity;
+            //agent.acceleration = agent.acceleration;
+           // agent.updateRotation = true;
 
-            agent.SetDestination(player.transform.position);  //go to player
-
-           if (agent.remainingDistance <= agent.stoppingDistance)
-            {
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position), 10f * Time.deltaTime); //Look at player
-                
-            }
         }
 
         // if time is slow then
         if (timemanager.TimeIsSlow)
         {
-            //Debug.Log("TimeOn");
-            agent.speed *= TimeSlow;
-            agent.velocity *= TimeSlow;
-            agent.acceleration *= TimeSlow; // stop moving
-            //agent.updateRotation = false;
+            Debug.Log("TimeOn");
+            agent.speed = TimeSlow;
+            //agent.velocity =  agent.velocity * TimeSlow;
+            //agent.acceleration = agent.acceleration * TimeSlow; // stop moving
             //Debug.Log("STOPPED");
             timeBetweenAttacks = 3;
         }
@@ -108,14 +105,19 @@ public class AIMove : MonoBehaviour
         if(timemanager.isRewinding)
         {
             //Debug.Log("TimeOn");
-            agent.speed *= TimeStop;
-            agent.velocity *= TimeStop;
-            agent.acceleration *= TimeStop; // stop moving
-            //agent.updateRotation = false;
+            agent.speed = TimeStop;
+            //agent.velocity *= TimeStop;
+           // agent.acceleration = TimeStop; // stop moving
+            agent.updateRotation = false;
             //Debug.Log("STOPPED");
-            timeBetweenAttacks = 0;
+            timeBetweenAttacks = 200;
 
 
+        }
+        else 
+        {
+
+            agent.updateRotation = true;
         }
         
         
@@ -152,6 +154,7 @@ public class AIMove : MonoBehaviour
 
     void SearchWalkPoint() 
     {
+
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
 
@@ -164,32 +167,43 @@ public class AIMove : MonoBehaviour
     void ChasePlayer() 
     {
         
-            agent.SetDestination(player.position);
+            //agent.SetDestination(player.position);
              Debug.Log("CHASING PLAYER");
-           // Debug.Log("Off Sight =" + sightRange);
-       
+        // Debug.Log("Off Sight =" + sightRange);
+
+        agent.SetDestination(player.transform.position);  //go to player
+
+        if (agent.remainingDistance <= agent.stoppingDistance)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position), 10f * Time.deltaTime); //Look at player
+
+        }
+
 
     }
 
     void AttackPlayer() 
     {
 
-        agent.SetDestination(transform.position);
-
-        transform.LookAt(player);
-    
-
-        if(!alreadyAttacked)
+        if(timemanager.isRewinding == false) 
         {
-            //attack code
+            agent.SetDestination(transform.position);
 
-            shoot();
+            transform.LookAt(player);
+            Debug.Log("Player is looked at");
 
-            Debug.Log("PlayerIsAttacked");
+            if (!alreadyAttacked)
+            {
+                //attack code
 
-            alreadyAttacked = true;
-            Invoke(nameof(resetAttack), timeBetweenAttacks);
+                Debug.Log("player is shot");
 
+                shoot();
+
+                alreadyAttacked = true;
+                Invoke(nameof(resetAttack), timeBetweenAttacks);
+
+            }
         }
     
     }
@@ -232,12 +246,6 @@ public class AIMove : MonoBehaviour
         currentBullet.GetComponent<Rigidbody>().velocity = currentBullet.transform.forward * shootForce;
         //Roatate Bullet in shoot direction
         
-
-
-
- 
-            
-
 
     }
 

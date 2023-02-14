@@ -8,17 +8,17 @@ public class P_Fastfoward : MonoBehaviour
     public float SpeedTime;
 
     public TimeManager timemanager;
-  
-
+ 
     public Material TimeMat;
+
+    private bool toggle;
 
     private void Update()
     {
-        if (Input.GetKey("x")) 
+        if (Input.GetKeyDown("f") && timemanager.cooldown == false) 
         {
-            Time.timeScale = SpeedTime;
-            TimeMat.color = Color.green;
-            timemanager.isfast = true;
+            toggletime();
+        
         }
 
         if (Input.GetKey("v"))
@@ -27,5 +27,44 @@ public class P_Fastfoward : MonoBehaviour
             TimeMat.color = Color.black;
         }
     }
-    
+    void toggletime()
+    {
+        toggle = !toggle;
+
+        if (toggle)
+        {
+            timemanager.isfast = true;
+
+            Debug.Log("toggle On");
+            if (timemanager.isfast == true)
+            {
+                Time.timeScale = SpeedTime;
+                TimeMat.color = Color.green;
+
+            }
+            
+            
+        }
+        else
+        {
+            Debug.Log("toggle off");
+            Time.timeScale = NoramlTime;
+            TimeMat.color = Color.black;
+            timemanager.isfast = false;
+        }
+
+        if(timemanager.cooldown == true) 
+        {
+            Debug.Log("Cooldown");
+            timemanager.isfast = false;
+
+            Time.timeScale = NoramlTime;
+            TimeMat.color = Color.black;
+            
+
+        }
+
+
+    }
+
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5249463986913406623}
   - component: {fileID: 9064520151778302317}
-  - component: {fileID: 6665135205145122081}
+  - component: {fileID: 4851101212166415805}
   m_Layer: 9
   m_Name: AICAM
   m_TagString: Untagged
@@ -75,14 +75,39 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &6665135205145122081
-AudioListener:
+--- !u!114 &4851101212166415805
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2420329190095133211}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &2914381755689305998
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,10 +524,10 @@ MonoBehaviour:
   walkPointRange: 5
   timeBetweenAttacks: 1
   DefualtAttackTime: 0.7
-  TimeSlow: 0.2
+  TimeSlow: 1
   TimeStop: 0
-  sightRange: 40
-  attackRange: 1
+  sightRange: 25
+  attackRange: 12
   playerInSightRange: 0
   playerInAttackRange: 0
   Speed: 5
@@ -583,7 +608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fdb36d0264a70a40908e87cf2b19a12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player_rewind: {fileID: 0}
+  player_rewind: {fileID: 357847454, guid: 39fb36cd8b6af53439bacead2acb03a1, type: 3}
   TimeBeforeAffected: 0
   IsStopped: 0
 --- !u!1 &6244066103330267191

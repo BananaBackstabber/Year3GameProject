@@ -10,6 +10,8 @@ public class OpenDoor01 : MonoBehaviour
 
     [SerializeField] private bool openTrigger = false;
 
+    
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player")) 
