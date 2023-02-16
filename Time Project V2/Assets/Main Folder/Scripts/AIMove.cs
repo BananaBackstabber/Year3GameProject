@@ -59,7 +59,7 @@ public class AIMove : MonoBehaviour
     public float Speed;
     private void Awake()
     {
-        player = GameObject.Find("Player").transform;
+       // player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
 
     }

@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Main Folder/Scenes/SandBox_test_Room.unity
+- path: Assets/Main Folder/Scenes/SampleScene.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
