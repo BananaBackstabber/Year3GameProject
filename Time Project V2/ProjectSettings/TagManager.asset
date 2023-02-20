@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TimeManager
   - Hit
+  - Spawn_Location
   layers:
   - Default
   - TransparentFX

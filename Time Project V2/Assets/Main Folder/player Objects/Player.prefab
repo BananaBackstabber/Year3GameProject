@@ -194,7 +194,7 @@ MonoBehaviour:
   speed: 5
   max_gravity: -20
   jump_Force: 10
-  Rewind: {fileID: 0}
+  Rewind: {fileID: 8789930564959555562, guid: 6abb20072dc487e45a8a29e074df9c12, type: 3}
 --- !u!114 &2056169136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d26bb763287972a4eb79a7e9b2dbe054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Time: {fileID: 0}
+  Time: {fileID: 8789930564959555562, guid: 6abb20072dc487e45a8a29e074df9c12, type: 3}
   bullet: {fileID: 1663351979284790571, guid: 71519846409b3524b881a70214567758, type: 3}
   shootForce: 40
   upwardForce: 0
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dbf52dc9a719044787dddb98e3e87d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeManager: {fileID: 0}
+  TimeManager: {fileID: 8789930564959555562, guid: 6abb20072dc487e45a8a29e074df9c12, type: 3}
   Speed: {fileID: 2056169136}
   Timespeed: 1
   Timenormal: 1
@@ -296,7 +296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoramlTime: 1
   SpeedTime: 4
-  timemanager: {fileID: 0}
+  timemanager: {fileID: 8789930564959555562, guid: 6abb20072dc487e45a8a29e074df9c12, type: 3}
   TimeMat: {fileID: 2100000, guid: 44b80c8b2224dad4a8105451cdaa77a9, type: 2}
 --- !u!1 &4054395739074945781
 GameObject:
