@@ -31,11 +31,11 @@ public class ObjectClicked : MonoBehaviour, IClick
             {
                 if (hit.transform != null)
                 {
-                    Debug.Log("Hit =" + hit.collider);
+                   // Debug.Log("Hit =" + hit.collider);
                     IClick click = hit.collider.gameObject.GetComponent<IClick>();
                     if (click != null) click.onClickAction();
                     
-
+                    
                 }
             }
         }

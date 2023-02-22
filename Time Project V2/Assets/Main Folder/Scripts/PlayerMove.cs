@@ -48,7 +48,7 @@ public class PlayerMove : MonoBehaviour
         else if (Rewind.isRewinding == false) 
         {
 
-            Debug.Log("off");
+            
 
             //Axis.Horizontal and vertical are from the player helper script
             move_direction = new Vector3(Input.GetAxis(Axis.HORIZONTAL), 0f,

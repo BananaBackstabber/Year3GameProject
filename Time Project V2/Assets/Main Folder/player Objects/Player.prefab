@@ -1296,7 +1296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89349421a263fa8418617a56cbb2aa32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timemanager: {fileID: 0}
+  timemanager: {fileID: 8789930564959555562, guid: 6abb20072dc487e45a8a29e074df9c12, type: 3}
   playerRoot: {fileID: 4054395738912097814}
   lookRoot: {fileID: 4054395740016064593}
   invert: 1

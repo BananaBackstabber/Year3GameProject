@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {
-            Debug.Log("ESCAPE");
+           
             Application.Quit();
         }
 
