@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class WinActive : MonoBehaviour
 {
+    private int nextSceneToLoad;
     // Start is called before the first frame update
     void Start()
     {
-         
+        nextSceneToLoad = SceneManager.GetActiveScene().buildIndex + 1;
     }
 
     private void OnTriggerStay(Collider other)
@@ -18,7 +19,7 @@ public class WinActive : MonoBehaviour
         {
             Debug.Log("Next_level");
 
-            SceneManager.LoadScene("Level_002");
+            SceneManager.LoadScene(nextSceneToLoad);
             
         }
     }

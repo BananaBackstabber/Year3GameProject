@@ -16,14 +16,14 @@ TagManager:
   - Water
   - UI
   - FirstPerson
-  - GrayscaleLayers
+  - WayPoint
   - ground
   - Enemies
   - Bullets
   - MainCam
   - Ai Bullets
   - Roof
-  - 
+  - Top_Cam_Only
   - 
   - 
   - 

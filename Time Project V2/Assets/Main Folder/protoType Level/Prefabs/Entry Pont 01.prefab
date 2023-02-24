@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1807747592174643406}
   - component: {fileID: 1468516566362624065}
   - component: {fileID: 8550360626376460531}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,6 +203,7 @@ MonoBehaviour:
   Spawn_Location: {fileID: 2533912299443524359}
   TopCam: {fileID: 550526138785795775, guid: c7e60ba64d6e7b04a9cfc86918ec6da0, type: 3}
   Cursor: {fileID: 6545374562765171942, guid: 2af9b051b4b164d43b2fc9d7eb53fefb, type: 3}
+  TimeRelic: {fileID: 0}
   Vector: {x: 0, y: -20, z: 0}
   Win_condition: 0
   RunWin: 0

@@ -504,7 +504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 9102282033544154043, guid: 796464b73ea8db541bd61e12b3eb31af, type: 3}
-  shootForce: 20
+  shootForce: 30
   upwardForce: 0
   timeBetweenShooting: 5
   spread: 2
@@ -522,11 +522,13 @@ MonoBehaviour:
     m_Bits: 8
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
+  PatrolPoint: {x: 0, y: 0, z: 0}
+  waypoints: []
   timeBetweenAttacks: 1
   DefualtAttackTime: 0.7
   TimeSlow: 1
   TimeStop: 0
-  sightRange: 25
+  sightRange: 15
   attackRange: 12
   playerInSightRange: 0
   playerInAttackRange: 0

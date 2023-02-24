@@ -43,6 +43,12 @@ public class AIMove : MonoBehaviour
     bool walkPointSet;
     public float walkPointRange;
 
+    //PATROL V2
+    public Vector3 PatrolPoint;
+    public Transform[] waypoints;
+    int waypointIndex;
+    Vector3 Target;
+
     //Attacking 
     public float timeBetweenAttacks;
     public float DefualtAttackTime;
@@ -66,8 +72,9 @@ public class AIMove : MonoBehaviour
     }
      void Start()
     {
+        //Refrence to NAvmesh agent so the AI can navigate the navmesh
         agent = GetComponent<NavMeshAgent>();
-        
+        patrolingWalkPoint();
         timemanager = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
     }
     // Update is called once per frame
@@ -143,8 +150,19 @@ public class AIMove : MonoBehaviour
        
 
     }
-
     void patroling() 
+    {
+        // IF distance is less than 1 then update patrol information
+        if(Vector3.Distance(transform.position, Target) < 1) 
+        {
+            IterateWaypointIndex();
+            patrolingWalkPoint();
+
+        }
+
+
+    }
+    void Randompatroling() 
     {
        // Debug.Log("WALKING AROUND");
         if (!walkPointSet) SearchWalkPoint();
@@ -161,6 +179,8 @@ public class AIMove : MonoBehaviour
 
     }
 
+   
+
     void SearchWalkPoint() 
     {
         Debug.Log(walkPoint);
@@ -171,6 +191,24 @@ public class AIMove : MonoBehaviour
 
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
             walkPointSet = true;
+    }
+
+    void patrolingWalkPoint() 
+    {
+        Target = waypoints[waypointIndex].position;
+        agent.SetDestination(Target);
+    }
+
+    void IterateWaypointIndex() 
+    {
+        //Increase waypoint index by 1
+        waypointIndex++;
+        // Resets waypoints back to zero
+        if(waypointIndex == waypoints.Length) 
+        {
+            waypointIndex = 0;
+        }
+    
     }
 
     void ChasePlayer() 
