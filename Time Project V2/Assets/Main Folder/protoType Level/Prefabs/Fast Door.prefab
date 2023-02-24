@@ -352,6 +352,7 @@ MonoBehaviour:
   slowTime: {fileID: 4853071882603625567}
   SlowSpeed: 0.2
   NormalSpeed: 1.5
+  StopSpeed: 0
 --- !u!65 &4853071882603625574
 BoxCollider:
   m_ObjectHideFlags: 0
