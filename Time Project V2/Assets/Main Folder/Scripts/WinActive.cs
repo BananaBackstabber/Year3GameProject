@@ -18,7 +18,7 @@ public class WinActive : MonoBehaviour
         {
             Debug.Log("Next_level");
 
-            SceneManager.LoadScene("SandBox_test_Room");
+            SceneManager.LoadScene("Level_002");
             
         }
     }

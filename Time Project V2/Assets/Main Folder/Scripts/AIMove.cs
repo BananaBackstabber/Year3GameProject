@@ -35,6 +35,7 @@ public class AIMove : MonoBehaviour
 
     public Transform player;
 
+
     public LayerMask whatIsGround, whatIsPlayer;
 
     //Patroling
@@ -66,12 +67,20 @@ public class AIMove : MonoBehaviour
      void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        //player = GameObject.FindGameObjectWithTag("Player");
+        
         timemanager = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
     }
     // Update is called once per frame
     void Update()
     {
+        if (GameObject.FindGameObjectWithTag("Player"))
+        {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+        else 
+        {
+            player = null;
+        }
 
         //Debug.Log("Agent Velocity" + agent.velocity);
         //Debug.Log("Agent acceleration" + agent.acceleration);
@@ -137,7 +146,7 @@ public class AIMove : MonoBehaviour
 
     void patroling() 
     {
-        //Debug.Log("WALKING AROUND");
+       // Debug.Log("WALKING AROUND");
         if (!walkPointSet) SearchWalkPoint();
 
         if (walkPointSet) 
@@ -154,7 +163,7 @@ public class AIMove : MonoBehaviour
 
     void SearchWalkPoint() 
     {
-
+        Debug.Log(walkPoint);
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
 
@@ -167,9 +176,10 @@ public class AIMove : MonoBehaviour
     void ChasePlayer() 
     {
         
-            //agent.SetDestination(player.position);
-             Debug.Log("CHASING PLAYER");
-        // Debug.Log("Off Sight =" + sightRange);
+            agent.SetDestination(player.position);
+            // Debug.Log("CHASING PLAYER");
+         Debug.Log("Off Sight =" + sightRange);
+         Debug.Log(player.position);
 
         agent.SetDestination(player.transform.position);  //go to player
 

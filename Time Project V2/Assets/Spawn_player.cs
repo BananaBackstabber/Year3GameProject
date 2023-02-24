@@ -13,6 +13,10 @@ public class Spawn_player : MonoBehaviour, IClick
     public GameObject TopCam;
     public GameObject Cursor;
 
+    public Pick_up_Crystal TimeRelic;
+
+
+
     public Vector3 Vector;
 
     public bool Win_condition;
@@ -67,6 +71,14 @@ public class Spawn_player : MonoBehaviour, IClick
         Win_condition = true;
         Debug.Log("SET BOX = " + Win_condition);
 
+        //set the Time relic script to the spawn point the player has clicked on
+        TimeRelic.Spawn = this.GetComponent<Spawn_player>();
+
+        //AIMove.player = Spawn_Object.transform;
+
+
+           
+
         // ActivateWin();
     }
 
@@ -85,7 +97,7 @@ public class Spawn_player : MonoBehaviour, IClick
             Debug.Log("SET BOX 2");
             Spawn_rope.SetActive(true);
            
-            Instantiate(Spawn_rope, Spawn_Location.transform.position, Spawn_Location.transform.rotation);
+            Instantiate(Spawn_rope, Spawn_Location.transform.position + Vector, Spawn_Location.transform.rotation);
             //Instantiate(Win_box, Spawn_Location.transform.position + Vector, Spawn_Location.transform.rotation);
 
             RunWin = false;

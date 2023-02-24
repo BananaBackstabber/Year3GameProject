@@ -6,4 +6,6 @@ public interface IClick {
 
     void onClickAction();
 
+   
+
 }

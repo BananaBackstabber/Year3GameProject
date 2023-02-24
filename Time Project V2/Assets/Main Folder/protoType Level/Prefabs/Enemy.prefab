@@ -513,7 +513,7 @@ MonoBehaviour:
   fpsCam: {fileID: 9064520151778302317}
   attackPoint: {fileID: 7661624256991627229}
   agent: {fileID: 2914381755708210424}
-  player: {fileID: 0}
+  player: {fileID: 4054395738912097814, guid: 39fb36cd8b6af53439bacead2acb03a1, type: 3}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
