@@ -13,6 +13,8 @@ public class Spawn_player : MonoBehaviour, IClick
     public GameObject TopCam;
     public GameObject Cursor;
 
+    public GameObject Player_UI;
+
     public Pick_up_Crystal TimeRelic;
 
 
@@ -25,9 +27,16 @@ public class Spawn_player : MonoBehaviour, IClick
 
     public void Start()
     {
+        Player_UI = GameObject.FindGameObjectWithTag("UITime");
+        Invoke("disableUI", 0.001f);
         //Win_condition = false;
     }
 
+    void disableUI() 
+    {
+        Debug.Log("DisableUI IS A GO");
+        Player_UI.SetActive(false);
+    }
     public void Update()
     {
         
@@ -67,9 +76,11 @@ public class Spawn_player : MonoBehaviour, IClick
         
         Cursor.SetActive(false);
         TopCam.SetActive(false);
+        Player_UI.SetActive(true);
+        
 
         Win_condition = true;
-        Debug.Log("SET BOX = " + Win_condition);
+       // Debug.Log("SET BOX = " + Win_condition);
 
         //set the Time relic script to the spawn point the player has clicked on
         TimeRelic.Spawn = this.GetComponent<Spawn_player>();

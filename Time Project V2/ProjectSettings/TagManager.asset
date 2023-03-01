@@ -8,6 +8,8 @@ TagManager:
   - Hit
   - Spawn_Location
   - Win_Condition
+  - UIHealth
+  - UITime
   layers:
   - Default
   - TransparentFX

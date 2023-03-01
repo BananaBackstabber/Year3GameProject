@@ -219,7 +219,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 4054395738912097812}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 1
   m_Direction: 1
@@ -236,6 +236,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0337a03edea89f44faaf2852c290cf82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxPlayer_health: 200
+  Current_health: 0
+  HealthBar: {fileID: 0}
 --- !u!114 &1403737814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,7 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dbf52dc9a719044787dddb98e3e87d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeManager: {fileID: 8789930564959555562, guid: 6abb20072dc487e45a8a29e074df9c12, type: 3}
+  TimeManager: {fileID: 0}
   Speed: {fileID: 2056169136}
   Timespeed: 1
   Timenormal: 1
@@ -1298,7 +1301,7 @@ MonoBehaviour:
   timemanager: {fileID: 8789930564959555562, guid: 6abb20072dc487e45a8a29e074df9c12, type: 3}
   playerRoot: {fileID: 4054395738912097814}
   lookRoot: {fileID: 4054395740016064593}
-  invert: 1
+  invert: 0
   can_Unlock: 1
   sensivity: 5
   smooth_Steps: 10

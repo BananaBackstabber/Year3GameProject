@@ -9,6 +9,8 @@ public class WinActive : MonoBehaviour
     void Start()
     {
         nextSceneToLoad = SceneManager.GetActiveScene().buildIndex + 1;
+
+
     }
 
     private void OnTriggerStay(Collider other)

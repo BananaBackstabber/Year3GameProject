@@ -203,6 +203,8 @@ MonoBehaviour:
   Spawn_Location: {fileID: 2533912299443524359}
   TopCam: {fileID: 550526138785795775, guid: c7e60ba64d6e7b04a9cfc86918ec6da0, type: 3}
   Cursor: {fileID: 6545374562765171942, guid: 2af9b051b4b164d43b2fc9d7eb53fefb, type: 3}
+  TimeBar: {fileID: 0}
+  HealthBar: {fileID: 0}
   TimeRelic: {fileID: 0}
   Vector: {x: 0, y: -20, z: 0}
   Win_condition: 0

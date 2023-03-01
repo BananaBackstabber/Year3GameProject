@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class TimeManager : MonoBehaviour
 {
     //Access the Script for the UI 
-    public TimeAndHealthUI DrainBar;
+    public TimeUI DrainBar;
 
     [SerializeField] private ForwardRendererData rendererData = null;
     [SerializeField] private string featureName = null;
@@ -58,8 +58,6 @@ public class TimeManager : MonoBehaviour
 
         FastTimeImage.enabled = false;
 
-
-
     }
     public void ContinueTime()
     {
@@ -91,27 +89,27 @@ public class TimeManager : MonoBehaviour
 
         if (TimeGauge <= 1.5) 
         {
-            DrainBar.fill.color = Color.red;
+            DrainBar.Powerfill.color = Color.red;
         
         }
         // If Time Gauge equals max then turn the bar green
 
         if (TimeGauge <= 4.9)
         {
-            DrainBar.fill.color = Color.blue;
+            DrainBar.Powerfill.color = Color.blue;
 
         }
 
         if (TimeGauge == 5) 
         {
 
-            DrainBar.fill.color = Color.green;
+            DrainBar.Powerfill.color = Color.green;
         }
         // If cooldown is active turn the bar grey to show it is inactive
 
         if (cooldown == true) 
         {
-            DrainBar.fill.color = Color.grey;
+           DrainBar.Powerfill.color = Color.grey;
         
         }
 

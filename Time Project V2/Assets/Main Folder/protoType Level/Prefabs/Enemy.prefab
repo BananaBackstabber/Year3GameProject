@@ -528,7 +528,7 @@ MonoBehaviour:
   DefualtAttackTime: 0.7
   TimeSlow: 1
   TimeStop: 0
-  sightRange: 15
+  sightRange: 35
   attackRange: 12
   playerInSightRange: 0
   playerInAttackRange: 0

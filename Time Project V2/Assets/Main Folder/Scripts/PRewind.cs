@@ -23,6 +23,7 @@ public class PRewind : MonoBehaviour
 
     void Start()
     {
+        TimeManager = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
         pointsInTime = new List<PointInTime>();
         //rb = GetComponent<Rigidbody>();
     }

@@ -63,6 +63,9 @@ public class AIMove : MonoBehaviour
 
     private TimeManager timemanager;
 
+    private bool delay;
+    private float delayTimer = 10;
+
     public float Speed;
     private void Awake()
     {
@@ -109,7 +112,7 @@ public class AIMove : MonoBehaviour
         // if time is slow then
         if (timemanager.TimeIsSlow)
         {
-            Debug.Log("TimeOn");
+            
             agent.speed = TimeSlow;
             //agent.velocity =  agent.velocity * TimeSlow;
             //agent.acceleration = agent.acceleration * TimeSlow; // stop moving
@@ -120,31 +123,33 @@ public class AIMove : MonoBehaviour
         // if time is reversed then
         if(timemanager.isRewinding)
         {
-            //Debug.Log("TimeOn");
+           
+            //Slows speed, rotation and increase timeBetweenAttacks so that can't shoot during the time the player reverses time
             agent.speed = TimeStop;
-            //agent.velocity *= TimeStop;
-           // agent.acceleration = TimeStop; // stop moving
             agent.updateRotation = false;
-            //Debug.Log("STOPPED");
             timeBetweenAttacks = 200;
+            delay = true;
+            //agent.velocity *= TimeStop;
+            // agent.acceleration = TimeStop; // stop moving
 
 
         }
         else 
         {
-
+            Checkdelay();
             agent.updateRotation = true;
         }
         
         
             
-            //Normal Movement
+            //AI Movement
             playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
             playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-
-            if (!playerInSightRange && !playerInAttackRange) patroling();
-            if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-            if (playerInSightRange && playerInAttackRange) AttackPlayer();
+            
+            //AI CHANGES IN STATE
+            if (!playerInSightRange && !playerInAttackRange && delay == false) patroling();
+            if (playerInSightRange && !playerInAttackRange && delay == false) ChasePlayer();
+            if (playerInSightRange && playerInAttackRange && delay == false) AttackPlayer();
         
 
        
@@ -215,9 +220,9 @@ public class AIMove : MonoBehaviour
     {
         
             agent.SetDestination(player.position);
-            // Debug.Log("CHASING PLAYER");
-         Debug.Log("Off Sight =" + sightRange);
-         Debug.Log(player.position);
+          // Debug.Log("CHASING PLAYER");
+         //Debug.Log("Off Sight =" + sightRange);
+        // Debug.Log(player.position);
 
         agent.SetDestination(player.transform.position);  //go to player
 
@@ -233,18 +238,18 @@ public class AIMove : MonoBehaviour
     void AttackPlayer() 
     {
 
-        if(timemanager.isRewinding == false) 
+        if(timemanager.isRewinding == false && delay == false) 
         {
+           // Debug.Log("DONT LOOK =" + timemanager.isRewinding);
             agent.SetDestination(transform.position);
-
             transform.LookAt(player);
-            Debug.Log("Player is looked at");
+           // Debug.Log("Player is looked at");
 
             if (!alreadyAttacked)
             {
                 //attack code
 
-                Debug.Log("player is shot");
+                //Debug.Log("player is shot");
 
                 shoot();
 
@@ -253,6 +258,7 @@ public class AIMove : MonoBehaviour
 
             }
         }
+      
     
     }
 
@@ -297,10 +303,20 @@ public class AIMove : MonoBehaviour
 
     }
 
-
-
-
-
-
+    void Checkdelay() 
+    {
+        Debug.Log("Checking");
+        if (timemanager.isRewinding == false && delay == true)
+        {
+            Debug.Log("Checked");
+            Invoke("playdelay", 0.8f);
+        }
+    
+    }
+    void playdelay() 
+    {
+        Debug.Log("Delay Played");
+        delay = false;
+    }
 
 }

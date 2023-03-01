@@ -22,6 +22,7 @@ public class PlayerMove : MonoBehaviour
     private void Awake()
     {
         Character_Controller = GetComponent<CharacterController>();
+        Rewind = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
     }
 
     // Update is called once per frame
@@ -38,7 +39,7 @@ public class PlayerMove : MonoBehaviour
 
         if (Rewind.isRewinding == true) 
         {
-            //Debug.Log("N/G");
+            Debug.Log("N/G");
             NoGraivity();
 
 

@@ -8,7 +8,7 @@ public class TSRewind : MonoBehaviour
     public PRewind player_rewind;
 
     public float TimeBeforeAffected; //The time after the object spawns until it will be affected by the timestop(for projectiles etc)
-    private TimeManager timemanager;
+    public TimeManager timemanager;
     private Rigidbody rb;
     private Vector3 recordedVelocity;
     private float recordedMagnitude;
@@ -22,17 +22,25 @@ public class TSRewind : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
+        //player_rewind = null;
         timemanager = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
+        //player_rewind = GameObject.FindGameObjectWithTag("Player").GetComponent<PRewind>();
         TimeBeforeAffectedTimer = TimeBeforeAffected;
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+        //Should find the player script only once 
 
-       // Debug.Log("Object is stopped = " + rb.isKinematic);
+        if (player_rewind == null) 
+        {
+            Debug.Log("FIND PLAYER NOW");
+            player_rewind = GameObject.FindGameObjectWithTag("Player").GetComponent<PRewind>();
+        }
+   
+   
+        // Debug.Log("Object is stopped = " + rb.isKinematic);
 
         TimeBeforeAffectedTimer -= Time.deltaTime; // minus 1 per second
         if (TimeBeforeAffectedTimer <= 0f)
@@ -43,7 +51,7 @@ public class TSRewind : MonoBehaviour
         if (CanBeAffected && timemanager.isRewinding && !IsStopped)
         {
             //transform.Rotate(0f, 0f, 0f, Space.Self);
-            // Debug.Log("Time Stop");
+            Debug.Log("Time Stop");
 
             if (rb.velocity.magnitude >= 0f) //If Object is moving
             {

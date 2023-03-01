@@ -10,13 +10,20 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
 
     private bool toggle;
-  
 
+    //Health VARIABLES
+    public float maxPlayer_health;
+    public float Current_health;
+    public HealthBar HealthBar;
+
+    private float pDamage = 25;
     void Start()
     {
         timemanager = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
+        HealthBar = GameObject.FindGameObjectWithTag("UIHealth").GetComponent<HealthBar>();
 
-       
+        Current_health = maxPlayer_health;
+        HealthBar.SetMaxHealth(maxPlayer_health);
     }
 
     // Update is called once per frame
@@ -37,31 +44,53 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {
-           
-            Application.Quit();
+            Current_health -= pDamage;
+            HealthBar.SetPlayerHealth(Current_health);
+            //Application.Quit();
         }
 
-        if (Input.GetKeyDown("6"))
+        //CODE TO RESET ROOM FOR DEBUG TESTING 
+       /* if (Input.GetKeyDown("6"))
         {
             Debug.Log("ESCAPE");
             SceneManager.LoadScene(1);
-        }
+        }*/
 
-        if (Input.GetKeyDown("7"))
+        //HEALTH VALUES
+
+        
+        /*if(Player_health <= 100) 
         {
-            Debug.Log("ESCAPE");
-            SceneManager.LoadScene(0);
+            HealthBar.HealthFill.color = Color.cyan;
+        }
+        if (Player_health <= 50) 
+        {
+            
+            HealthBar.HealthFill.color = Color.yellow;
+        }
+
+        if(Player_health <= 25)
+        {
+            HealthBar.HealthFill.color = Color.red;
+        }*/
+
+
+        if(Current_health <= 0) 
+        {
+            //Player_health = 200;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+
+        }
+
+        if (Input.GetKeyDown("k")) 
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
     }
 
-    void Retry()
-    {
-
-      
-
-
-    }
+  
 
     void toggletime()
     {
