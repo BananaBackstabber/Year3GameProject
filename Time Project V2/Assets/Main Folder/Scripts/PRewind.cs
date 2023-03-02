@@ -6,7 +6,8 @@ public class PRewind : MonoBehaviour
 {
 
     public TimeManager TimeManager;
-    
+
+    public Select_powers poweractive;
 
     List<PointInTime> pointsInTime;
 
@@ -25,14 +26,20 @@ public class PRewind : MonoBehaviour
     {
         TimeManager = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
         pointsInTime = new List<PointInTime>();
+        poweractive = GameObject.FindGameObjectWithTag("Power_selecter").GetComponent<Select_powers>();
         //rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("e") && TimeManager.cooldown == false && TimeManager.TimeIsSlow == false)
-            toggletime();
+        if(poweractive.reverseIsClick == true) 
+        {
+            if (Input.GetMouseButtonDown (1) && TimeManager.cooldown == false && TimeManager.TimeIsSlow == false)
+                toggletime();
+            Debug.Log("Rclick = Reverse Time");
+        }
+        
     }
 
     private void FixedUpdate()

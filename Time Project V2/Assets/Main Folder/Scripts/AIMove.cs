@@ -305,17 +305,17 @@ public class AIMove : MonoBehaviour
 
     void Checkdelay() 
     {
-        Debug.Log("Checking");
+      
         if (timemanager.isRewinding == false && delay == true)
         {
-            Debug.Log("Checked");
+            
             Invoke("playdelay", 0.8f);
         }
     
     }
     void playdelay() 
     {
-        Debug.Log("Delay Played");
+        //Debug.Log("Delay Played");
         delay = false;
     }
 

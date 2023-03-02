@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Main Folder/Scenes/Level_002.unity
+- path: Assets/Main Folder/Scenes/Test_levels/Tri_V5.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

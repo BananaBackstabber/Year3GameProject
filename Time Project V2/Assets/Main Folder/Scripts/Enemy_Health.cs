@@ -7,6 +7,8 @@ public class Enemy_Health : MonoBehaviour
 
     public int Health;
 
+    public GameObject timePickUp;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,7 @@ public class Enemy_Health : MonoBehaviour
         if (Health <= 0 )
         {
             Destroy(gameObject);
+            Instantiate(timePickUp, transform.position, Quaternion.identity);
         }
     }
 
@@ -28,7 +31,7 @@ public class Enemy_Health : MonoBehaviour
 
         if(collision.gameObject.name == "Cube Bullet(Clone)")
         {
-            Debug.Log(Health);
+            //Debug.Log(Health);
             Health -= 25;
         }
     }

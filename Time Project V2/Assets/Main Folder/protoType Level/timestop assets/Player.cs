@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     private TimeManager timemanager;
+    public Select_powers powersOn;
     //public GrayscaleLayers Grayscale;
     // Start is called before the first frame update
 
@@ -21,26 +22,32 @@ public class Player : MonoBehaviour
     {
         timemanager = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
         HealthBar = GameObject.FindGameObjectWithTag("UIHealth").GetComponent<HealthBar>();
-
+        powersOn = GameObject.FindGameObjectWithTag("Power_selecter").GetComponent<Select_powers>();
         Current_health = maxPlayer_health;
         HealthBar.SetMaxHealth(maxPlayer_health);
+        Time.timeScale = 0.4f;
+        Invoke("Timenormal", 0.8f);
+    }
+
+    void Timenormal() 
+    {
+     // Debug.Log("NormalTime");
+     Time.timeScale = 1f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q) && timemanager.cooldown == false) //Stop Time when Q is pressed
+        if(powersOn.slowIsClick == true) 
         {
+            if (Input.GetMouseButtonDown(1) && timemanager.cooldown == false) //Stop Time when Q is pressed
+            {
 
-            toggletime();
+                toggletime();
+            }
         }
-        if(Input.GetKeyDown(KeyCode.E) && timemanager.TimeIsSlow)  //Continue Time when E is pressed
-        {
-            timemanager.ContinueTime();
-            //Grayscale.enabled = false;
-            //Debug.Log("Timeoff");
-
-        }
+        
+      
 
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {

@@ -598,6 +598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 100
+  timePickUp: {fileID: 6628904777338196505, guid: e6343e1d217995a45876e18ab306bb7c, type: 3}
 --- !u!114 &1170054141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -612,6 +613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player_rewind: {fileID: 357847454, guid: 39fb36cd8b6af53439bacead2acb03a1, type: 3}
   TimeBeforeAffected: 0
+  timemanager: {fileID: 0}
   IsStopped: 0
 --- !u!1 &6244066103330267191
 GameObject:

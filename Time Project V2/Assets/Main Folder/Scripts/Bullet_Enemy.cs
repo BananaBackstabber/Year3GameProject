@@ -35,7 +35,7 @@ public class Bullet_Enemy : MonoBehaviour
     {
         player1.Current_health -= damage;
         player1.HealthBar.SetPlayerHealth(player1.Current_health);
-        Debug.Log(player1.Current_health);
+        //Debug.Log(player1.Current_health);
         
     }
 

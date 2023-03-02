@@ -10,6 +10,9 @@ TagManager:
   - Win_Condition
   - UIHealth
   - UITime
+  - Power_selecter
+  - Plan_UI
+  - Plan_UI2
   layers:
   - Default
   - TransparentFX
