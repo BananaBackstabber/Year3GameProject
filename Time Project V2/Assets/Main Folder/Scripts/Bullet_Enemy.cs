@@ -19,16 +19,14 @@ public class Bullet_Enemy : MonoBehaviour
         //Debug.Log(gameObject.tag);
         if(collision.gameObject.tag == "Player") 
         {
-            playerDamaged(); 
-            //Debug.Log("CONTACT" + collision.gameObject+ "Health =" + player.Current_health);
-            //playerIsAt -= 1;
+            playerDamaged();
+            Destroy(gameObject);
+        }
+        else if(collision.gameObject.layer == 8)// Check the Int value of the layer 
+        {
+          
         }
         Destroy(gameObject);
-        //Debug.Log("Dead");
-
-
-
-
     }
 
     void playerDamaged() 

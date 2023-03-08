@@ -158,7 +158,7 @@ public class AIMove : MonoBehaviour
     void patroling() 
     {
 
-        Debug.Log(Vector3.Distance(transform.position, Target));
+       
         // IF distance is less than 1 then update patrol information
         if(Vector3.Distance(transform.position, Target) < 1.5) 
         {

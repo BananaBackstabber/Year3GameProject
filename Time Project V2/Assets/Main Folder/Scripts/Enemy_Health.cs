@@ -9,6 +9,8 @@ public class Enemy_Health : MonoBehaviour
 
     public GameObject timePickUp;
 
+    public int damagefrombullet;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,8 +33,8 @@ public class Enemy_Health : MonoBehaviour
 
         if(collision.gameObject.name == "Cube Bullet(Clone)")
         {
-            Debug.Log("SHOT" + Health);
-            Health -= 25;
+            //Debug.Log("SHOT" + Health);
+            Health -= damagefrombullet;
         }
     }
 }

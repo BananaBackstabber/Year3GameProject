@@ -9,13 +9,19 @@ public class PRewind : MonoBehaviour
 
     public Select_powers poweractive;
 
+    //Records the player position to be reversed
     List<PointInTime> pointsInTime;
+    //Records the players health at any point in time
+    List<RecordHealth> RecordedHealth;
+    //public float Phealth;
+
+    public Player player;
 
     public PlayerSprintandCrouch Speed;
 
     public float Timespeed;
     public float Timenormal;
-
+    public float hreverse;
     public Material timeMat;
 
     public float recordTime = 5f;
@@ -26,18 +32,26 @@ public class PRewind : MonoBehaviour
     {
         TimeManager = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
         pointsInTime = new List<PointInTime>();
+        RecordedHealth = new List<RecordHealth>();
         poweractive = GameObject.FindGameObjectWithTag("Power_selecter").GetComponent<Select_powers>();
-        //rb = GetComponent<Rigidbody>();
+        
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        //Debug.Log(pointsInTime);
+
+       
+
         if(poweractive.reverseIsClick == true) 
         {
-            if (Input.GetMouseButtonDown (1) && TimeManager.cooldown == false && TimeManager.TimeIsSlow == false)
+            //Debug.Log("RIGHTCLICKR");
+            if (Input.GetMouseButtonDown(1) && TimeManager.cooldown == false && TimeManager.TimeIsSlow == false)
                 toggletime();
-            Debug.Log("Rclick = Reverse Time");
+
         }
         
     }
@@ -48,6 +62,7 @@ public class PRewind : MonoBehaviour
             Rewind();
         else
             Record();
+            
 
     }
 
@@ -71,12 +86,21 @@ public class PRewind : MonoBehaviour
     {
         if (pointsInTime.Count > 0)
         {
+            //Reverses the player current position
             Time.timeScale = Timespeed;
             PointInTime pointInTime = pointsInTime[0];
             transform.position = pointInTime.position;
             transform.rotation = pointInTime.rotation;
             //transform.localPosition = pointInTime.position;
             pointsInTime.RemoveAt(0);
+
+            //Reverses the player current Health
+            RecordHealth recordHealth = RecordedHealth[0];
+            player.Current_health = recordHealth.trackHealth;
+            //player.Current_health = hreverse;
+            RecordedHealth.RemoveAt(0);
+            Debug.Log("Track Health =" + recordHealth.trackHealth);
+              //Debug.Log("Track Health =" + hreverse);
         }
         else
         {
@@ -88,13 +112,22 @@ public class PRewind : MonoBehaviour
 
     void Record()
     {
+        //Records the players position and rotation in time
         if (pointsInTime.Count > Mathf.Round(recordTime / Time.fixedDeltaTime))
         {
             pointsInTime.RemoveAt(pointsInTime.Count - 1);
         }
+        //Records the players health at any point in time, so it can be reversed
+        if(RecordedHealth.Count > Mathf.Round(recordTime / Time.fixedDeltaTime)) 
+        {
+            RecordedHealth.RemoveAt(RecordedHealth.Count - 1);
+        }
 
         pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation));
+        RecordedHealth.Insert(0, new RecordHealth(player.Current_health));
 
+        hreverse -= 2f * Time.deltaTime;
+       // hreverse = player.Current_health;
     }
 
     void StartRewind()

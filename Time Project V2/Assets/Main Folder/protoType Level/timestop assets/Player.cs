@@ -17,43 +17,50 @@ public class Player : MonoBehaviour
     public float Current_health;
     public HealthBar HealthBar;
 
+    //Bleed out state
+     public Animator animator;
+     public Animation BleedAnim;
+
     private float pDamage = 25;
     void Start()
     {
         timemanager = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
         HealthBar = GameObject.FindGameObjectWithTag("UIHealth").GetComponent<HealthBar>();
         powersOn = GameObject.FindGameObjectWithTag("Power_selecter").GetComponent<Select_powers>();
+        //animator = GetComponent<Animator>();
         Current_health = maxPlayer_health;
         HealthBar.SetMaxHealth(maxPlayer_health);
         Time.timeScale = 0.4f;
-        Invoke("Timenormal", 0.8f);
+        Invoke("Timenormal", 1f);
     }
 
     void Timenormal() 
     {
-     // Debug.Log("NormalTime");
+     // This fuction returns time to normals after a few seconds of slow time at the beginning of the player spawn
      Time.timeScale = 1f;
+        Debug.Log("Timenormal");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(powersOn.slowIsClick == true) 
+        if(powersOn.slowIsClick == true && Input.GetMouseButtonDown(1) && timemanager.cooldown == false) 
         {
-            if (Input.GetMouseButtonDown(1) && timemanager.cooldown == false) //Stop Time when Q is pressed
-            {
-
-                toggletime();
-            }
+                Toggletime();
         }
         
       
 
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {
-            Current_health -= pDamage;
+            //Current_health -= pDamage;
             HealthBar.SetPlayerHealth(Current_health);
             //Application.Quit();
+        }
+
+        if(timemanager.isRewinding == true) 
+        {
+            HealthBar.SetPlayerHealth(Current_health);
         }
 
         //CODE TO RESET ROOM FOR DEBUG TESTING 
@@ -84,22 +91,51 @@ public class Player : MonoBehaviour
 
         if(Current_health <= 0) 
         {
-            //Player_health = 200;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
+          
+            if(timemanager.isRewinding == false) 
+            {
+                Time.timeScale = 0.4f;
+                Debug.Log("BLEEDINHOUT");
+                animator.SetBool("IsBleeding", true);
+                animator.applyRootMotion = false;
+                animator.SetFloat("SpeedM", 0.5f);
+                Invoke("reload", 2f);
+                CancelInvoke("ReverseDeath");
+            }
+            else if(timemanager.isRewinding == true) 
+            {
+                Debug.Log("ISREVERSING");
+                animator.SetFloat("SpeedM", -0.5f);
+                CancelInvoke("reload");
+                Invoke("ReverseDeath", 2f);
+            
+            }
+            
 
         }
 
-        if (Input.GetKeyDown("k")) 
+        if (Input.GetKeyDown("t")) 
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //Debug.Log(Current_health);
+            //Debug.Log(Current_health);
+            Current_health -= pDamage;
         }
 
     }
 
-  
+    void reload() 
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
-    void toggletime()
+    void ReverseDeath()
+    {
+        Debug.Log("ISNOTDEAD");
+        animator.SetBool("IsBleeding", false);
+        animator.applyRootMotion = true;
+    }
+    void Toggletime()
     {
         toggle = !toggle;
 

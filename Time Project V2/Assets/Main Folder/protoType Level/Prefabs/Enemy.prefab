@@ -599,6 +599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 100
   timePickUp: {fileID: 6628904777338196505, guid: e6343e1d217995a45876e18ab306bb7c, type: 3}
+  damagefrombullet: 25
 --- !u!114 &1170054141
 MonoBehaviour:
   m_ObjectHideFlags: 0

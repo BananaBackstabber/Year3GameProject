@@ -27,6 +27,9 @@ public class TimeStop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        //Debug.Log("Time = " + timemanager.TimeIsSlow);
+        //Debug.Log("canbeAffected =" + CanBeAffected);
         TimeBeforeAffectedTimer -= Time.deltaTime; // minus 1 per second
         if (TimeBeforeAffectedTimer <= 0f)
         {
@@ -35,8 +38,8 @@ public class TimeStop : MonoBehaviour
 
         if (CanBeAffected && timemanager.TimeIsSlow && !IsStopped)
         {
-
-           // Debug.Log("Time Stop");
+           
+           Debug.Log("TIME BAD");
 
             if (rb.velocity.magnitude >= 0f) //If Object is moving
             {
@@ -49,14 +52,24 @@ public class TimeStop : MonoBehaviour
                 
             }
         }
+        else 
+        {
+           
+        }
 
     }
     public void ContinueTime()
     {
+
+
+        // This IF Statement stops the code continuing to repeat when Time Guage = 0. 
+        // Don't know exactly why this is happening needs to be investigated further 
+        if (timemanager.TimeGauge > 0)
+        {
+            IsStopped = false;
+            rb.velocity = recordedVelocity * recordedMagnitude; //Adds back the recorded velocity when time continues
+        }
         
-        
-        IsStopped = false;
-        rb.velocity = recordedVelocity * recordedMagnitude; //Adds back the recorded velocity when time continues
 
         
     }

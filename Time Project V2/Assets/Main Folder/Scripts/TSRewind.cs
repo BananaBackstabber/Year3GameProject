@@ -35,7 +35,7 @@ public class TSRewind : MonoBehaviour
 
         if (player_rewind == null) 
         {
-            Debug.Log("FIND PLAYER NOW");
+            //Debug.Log("FIND PLAYER NOW");
             player_rewind = GameObject.FindGameObjectWithTag("Player").GetComponent<PRewind>();
         }
    
@@ -51,7 +51,7 @@ public class TSRewind : MonoBehaviour
         if (CanBeAffected && timemanager.isRewinding && !IsStopped)
         {
             //transform.Rotate(0f, 0f, 0f, Space.Self);
-            Debug.Log("Time Stop");
+           
 
             if (rb.velocity.magnitude >= 0f) //If Object is moving
             {

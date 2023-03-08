@@ -39,11 +39,8 @@ public class PlayerMove : MonoBehaviour
 
         if (Rewind.isRewinding == true) 
         {
-            Debug.Log("N/G");
+            //Debug.Log("N/G");
             NoGraivity();
-
-
-            Debug.Log("On");
 
         }
         else if (Rewind.isRewinding == false) 

@@ -238,7 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6459b5c62324af94cbef242c0c883de9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeBeforeAffected: 0
+  TimeBeforeAffected: 0.1
   IsStopped: 0
 --- !u!114 &5397204151765388307
 MonoBehaviour:

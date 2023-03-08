@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 583611884}
+  - component: {fileID: 73086016}
   m_Layer: 6
   m_Name: ShotPoint
   m_TagString: Untagged
@@ -24,12 +25,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 583611883}
   m_LocalRotation: {x: -0, y: -0, z: -0.021814894, w: 0.99976206}
-  m_LocalPosition: {x: 0.746, y: -0.102, z: 0.57}
+  m_LocalPosition: {x: 0.627, y: -0.1, z: 0.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4054395740016064593}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &73086016
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583611883}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.049156345, y: 0.038981486, z: 0.03460331}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4054395738854498007
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,7 +187,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 2.5
-  m_Radius: 0.5
+  m_Radius: 0.7
   m_SlopeLimit: 55
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -202,7 +216,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4054395738912097812}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e054eb0955ea5445a943e6c1fa0b660, type: 3}
   m_Name: 
@@ -240,6 +254,7 @@ MonoBehaviour:
   maxPlayer_health: 100
   Current_health: 0
   HealthBar: {fileID: 0}
+  animator: {fileID: 339910626}
 --- !u!114 &1403737814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,7 +269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Time: {fileID: 8789930564959555562, guid: 6abb20072dc487e45a8a29e074df9c12, type: 3}
   bullet: {fileID: 1663351979284790571, guid: 71519846409b3524b881a70214567758, type: 3}
-  shootForce: 40
+  shootForce: 50
   upwardForce: 0
   timeBetweenShooting: 0
   spread: 5
@@ -282,9 +297,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeManager: {fileID: 0}
   poweractive: {fileID: 0}
+  player: {fileID: 1403737813}
   Speed: {fileID: 2056169136}
   Timespeed: 1
   Timenormal: 1
+  hreverse: 20
   timeMat: {fileID: 2100000, guid: 44b80c8b2224dad4a8105451cdaa77a9, type: 2}
   recordTime: 3
 --- !u!114 &249637780
@@ -1263,6 +1280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4054395740016064593}
   - component: {fileID: 3411032737405019910}
+  - component: {fileID: 339910626}
   m_Layer: 3
   m_Name: Look Root
   m_TagString: Untagged
@@ -1277,8 +1295,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4054395740016064590}
-  m_LocalRotation: {x: 0, y: 0, z: 0.008726558, w: 0.999962}
-  m_LocalPosition: {x: -0.579, y: 1.59, z: -0.266}
+  m_LocalRotation: {x: 0, y: 0, z: -0.23558386, w: 0.9718541}
+  m_LocalPosition: {x: -0.579, y: 1.59, z: -0.057}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4054395740578146197}
@@ -1287,7 +1305,7 @@ Transform:
   - {fileID: 583611884}
   m_Father: {fileID: 4054395738912097814}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -27.252}
 --- !u!114 &3411032737405019910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1310,6 +1328,25 @@ MonoBehaviour:
   roll_Angle: 0
   roll_Speed: 3
   default_Look_Limits: {x: -70, y: 80}
+--- !u!95 &339910626
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4054395740016064590}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7ed88450be6e4424da3c2f529762e2b0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4054395740019981073
 GameObject:
   m_ObjectHideFlags: 0
@@ -1716,7 +1753,7 @@ GameObject:
   - component: {fileID: 4054395740578146195}
   - component: {fileID: 1194150259}
   - component: {fileID: 596358819}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Main Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1768,7 +1805,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 14135
+    m_Bits: 46903
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

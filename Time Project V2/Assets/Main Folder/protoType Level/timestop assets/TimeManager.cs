@@ -59,28 +59,7 @@ public class TimeManager : MonoBehaviour
         FastTimeImage.enabled = false;
 
     }
-    public void ContinueTime()
-    {
-        TimeIsSlow = false;
-        isRewinding = false;
-        isfast = false;
-        //Time Gauge starts to recharge
-        
-
-        //Screen effect is off
-        timeMat.color = Color.black;
-        foreach (var LocalKeywords in timeMat.shaderKeywords) 
-        {
-            Debug.Log("Local shader keyword" + timeMat.shaderKeywords + "Is currenly enabled");
-        }
-
-        var objects = FindObjectsOfType<TimeStop>();  //Find Every object with the Timebody Component
-        for (var i = 0; i < objects.Length; i++)
-        {
-            objects[i].GetComponent<TimeStop>().ContinueTime(); //continue time in each of them
-        }
-   
-    }
+    
     private void Update()
     {
         //Debug.Log("TimeGuage = " + TimeGauge);
@@ -109,7 +88,7 @@ public class TimeManager : MonoBehaviour
 
         if (cooldown == true) 
         {
-           DrainBar.Powerfill.color = Color.grey;
+           //DrainBar.Powerfill.color = Color.grey;
         
         }
 
@@ -143,18 +122,18 @@ public class TimeManager : MonoBehaviour
         if (TimeGauge <= 0) 
         {
             ContinueTime();
-            cooldown = true;
+            //cooldown = true;
         }
 
         //Cooldown reset player can use time powers again
         if (TimeGauge >= 5)
         {
-            cooldown = false;
+            //cooldown = false;
         }
 
         if (TimeIsSlow == false && isRewinding == false && isfast == false) 
         {
-            TimeGauge += TimePowersRecharge * Time.deltaTime;
+            //TimeGauge += TimePowersRecharge * Time.deltaTime;
             TimeSlowImage.enabled = false;
             TimeReverseImage.enabled = false;
             FastTimeImage.enabled = false;
@@ -176,6 +155,30 @@ public class TimeManager : MonoBehaviour
         //Screen effect is on
         timeMat.color = Color.white;
     }
+
+    public void ContinueTime()
+    {
+        TimeIsSlow = false;
+        isRewinding = false;
+        isfast = false;
+        //Time Gauge starts to recharge
+
+
+        //Screen effect is off
+        timeMat.color = Color.black;
+        foreach (var LocalKeywords in timeMat.shaderKeywords)
+        {
+            Debug.Log("Local shader keyword" + timeMat.shaderKeywords + "Is currenly enabled");
+        }
+
+        var objects = FindObjectsOfType<TimeStop>();  //Find Every object with the Timebody Component
+        for (var i = 0; i < objects.Length; i++)
+        {
+            objects[i].GetComponent<TimeStop>().ContinueTime(); //continue time in each of them
+        }
+
+    }
+
     private bool TryGetFeature(out ScriptableRendererFeature feature) 
     {
         feature = rendererData.rendererFeatures.Where((f) => f.name == featureName).FirstOrDefault();
