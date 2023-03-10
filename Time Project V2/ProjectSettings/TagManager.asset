@@ -13,6 +13,7 @@ TagManager:
   - Power_selecter
   - Plan_UI
   - Plan_UI2
+  - Laser
   layers:
   - Default
   - TransparentFX
@@ -30,7 +31,7 @@ TagManager:
   - Roof
   - Top_Cam_Only
   - Glass
-  - 
+  - Trap
   - 
   - 
   - 

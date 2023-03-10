@@ -251,12 +251,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0337a03edea89f44faaf2852c290cf82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powersOn: {fileID: 0}
+  currentpower: {fileID: 0}
   maxPlayer_health: 100
   Current_health: 0
   HealthBar: {fileID: 0}
   animator: {fileID: 339910626}
   BleedAnim: {fileID: 0}
+  Movement: {fileID: 0}
 --- !u!114 &1403737814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1807,7 +1808,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 46903
+    m_Bits: 112439
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1867,7 +1868,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4054395740578146192}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f3192362bd7b1a479a3cfae7a1d03ba, type: 3}
   m_Name: 

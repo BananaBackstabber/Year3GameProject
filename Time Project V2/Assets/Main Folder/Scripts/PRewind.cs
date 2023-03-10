@@ -97,9 +97,8 @@ public class PRewind : MonoBehaviour
             //Reverses the player current Health
             RecordHealth recordHealth = RecordedHealth[0];
             player.Current_health = recordHealth.trackHealth;
-            //player.Current_health = hreverse;
             RecordedHealth.RemoveAt(0);
-            Debug.Log("Track Health =" + recordHealth.trackHealth);
+            //Debug.Log("Track Health =" + recordHealth.trackHealth);
               //Debug.Log("Track Health =" + hreverse);
         }
         else

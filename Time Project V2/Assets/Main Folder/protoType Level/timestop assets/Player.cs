@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public float maxPlayer_health;
     public float Current_health;
     public HealthBar HealthBar;
+    //public LaserDeath Laser;
 
     //Bleed out state
      public Animator animator;
@@ -33,6 +34,7 @@ public class Player : MonoBehaviour
         timemanager = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
         HealthBar = GameObject.FindGameObjectWithTag("UIHealth").GetComponent<HealthBar>();
         currentpower = GameObject.FindGameObjectWithTag("Power_selecter").GetComponent<Select_powers>();
+       // Laser = GameObject.FindGameObjectWithTag("Laser").GetComponent<LaserDeath>();
         Movement = gameObject.GetComponent<PlayerMove>();
         //animator = GetComponent<Animator>();
         Current_health = maxPlayer_health;
@@ -51,7 +53,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(currentpower.isslowcurrent == true && Input.GetMouseButtonDown(1) && timemanager.cooldown == false) 
+
+        HealthBar.SetPlayerHealth(Current_health);
+
+        if (currentpower.isslowcurrent == true && Input.GetMouseButtonDown(1) && timemanager.cooldown == false) 
         {
                 Toggletime();
         }
@@ -80,7 +85,7 @@ public class Player : MonoBehaviour
         }
         //HEALTH VALUES, testing what works
 
-        
+
         /*if(Player_health <= 100) 
         {
             HealthBar.HealthFill.color = Color.cyan;
@@ -96,15 +101,15 @@ public class Player : MonoBehaviour
             HealthBar.HealthFill.color = Color.red;
         }*/
 
-
-        if(Current_health <= 0) 
+      
+        if (Current_health <= 0) 
         {
 
           
             if(timemanager.isRewinding == false) 
             {
                 Time.timeScale = 0.4f;
-                Debug.Log("BLEEDINHOUT");
+      
                 animator.SetBool("IsBleeding", true);
                 animator.applyRootMotion = false;
                 animator.SetFloat("SpeedM", 0.5f);

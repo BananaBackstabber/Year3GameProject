@@ -18,9 +18,6 @@ public class PowerPickUp : MonoBehaviour
         {
             timemanager.TimeGauge += TimeBack;
             Destroy(gameObject);
-
-        
-
         }
     }
 }
