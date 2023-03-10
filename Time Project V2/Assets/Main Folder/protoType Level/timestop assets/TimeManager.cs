@@ -35,12 +35,6 @@ public class TimeManager : MonoBehaviour
     public Material timeMat;
     //public Renderer Mrenderer;
 
-    public Image TimeSlowImage;
-    //
-    public Image TimeReverseImage;
-
-    public Image FastTimeImage;
-
 
     private void Start()
     {
@@ -52,11 +46,7 @@ public class TimeManager : MonoBehaviour
         DrainBar.SetTimeGauge(TimeGauge);
 
         //PNG Image is false
-        TimeSlowImage.enabled = false;
-
-        TimeReverseImage.enabled = false;
-
-        FastTimeImage.enabled = false;
+        
 
     }
     
@@ -68,7 +58,7 @@ public class TimeManager : MonoBehaviour
 
         if (TimeGauge <= 1.5) 
         {
-            DrainBar.Powerfill.color = Color.red;
+            DrainBar.Powerfill.color = Color.yellow;
         
         }
         // If Time Gauge equals max then turn the bar green
@@ -82,7 +72,7 @@ public class TimeManager : MonoBehaviour
         if (TimeGauge == 5) 
         {
 
-            DrainBar.Powerfill.color = Color.green;
+            DrainBar.Powerfill.color = Color.cyan;
         }
         // If cooldown is active turn the bar grey to show it is inactive
 
@@ -99,7 +89,7 @@ public class TimeManager : MonoBehaviour
             TimeGauge -= SlowTimeDrain * Time.deltaTime;
             
             //Image will appears as on Screen UI when slowtimepower is active
-            TimeSlowImage.enabled = true;
+            
         }
 
         if (isRewinding == true)
@@ -107,7 +97,7 @@ public class TimeManager : MonoBehaviour
 
             TimeGauge -= RewindTimeDrain * Time.deltaTime;
             // drain 1 form the variable every one second
-            TimeReverseImage.enabled = true;
+            
 
         }
 
@@ -115,37 +105,22 @@ public class TimeManager : MonoBehaviour
         {
             TimeGauge -= FastTimeDrain * Time.deltaTime;
             //Debug.Log("ISfast is active" + TimeGauge);
-            FastTimeImage.enabled = true;
+            
         }
 
         //Cooldown actives player can not use time powers while cooldown is active
         if (TimeGauge <= 0) 
         {
+            Debug.Log("NOTIME");
             ContinueTime();
             //cooldown = true;
         }
-
         //Cooldown reset player can use time powers again
-        if (TimeGauge >= 5)
-        {
-            //cooldown = false;
-        }
-
-        if (TimeIsSlow == false && isRewinding == false && isfast == false) 
-        {
-            //TimeGauge += TimePowersRecharge * Time.deltaTime;
-            TimeSlowImage.enabled = false;
-            TimeReverseImage.enabled = false;
-            FastTimeImage.enabled = false;
-        }
-
         if(TimeGauge >= 5) 
         {
+            //cooldown = false;
             TimeGauge = 5;
         }
-
-       
-  
     }
     public void StopTime()
     {

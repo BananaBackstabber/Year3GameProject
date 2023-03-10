@@ -205,7 +205,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d10c022bd6d3444d99323075b66dca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  setspeed: 10
+  currentspeed: 10
   max_gravity: -20
   jump_Force: 10
   Rewind: {fileID: 8789930564959555562, guid: 6abb20072dc487e45a8a29e074df9c12, type: 3}
@@ -255,6 +256,7 @@ MonoBehaviour:
   Current_health: 0
   HealthBar: {fileID: 0}
   animator: {fileID: 339910626}
+  BleedAnim: {fileID: 0}
 --- !u!114 &1403737814
 MonoBehaviour:
   m_ObjectHideFlags: 0

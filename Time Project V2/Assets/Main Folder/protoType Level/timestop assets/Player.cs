@@ -6,11 +6,14 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     private TimeManager timemanager;
-    public Select_powers powersOn;
+    public Select_powers currentpower;
     //public GrayscaleLayers Grayscale;
     // Start is called before the first frame update
 
+    //Power selection
     private bool toggle;
+    private bool powertoggle;
+    //public Select_powers currentpower;
 
     //Health VARIABLES
     public float maxPlayer_health;
@@ -20,31 +23,35 @@ public class Player : MonoBehaviour
     //Bleed out state
      public Animator animator;
      public Animation BleedAnim;
-
+     private float BleedSpeed = 1;
+     public PlayerMove Movement;
+     
+    //DEBUG TESTING STUFF
     private float pDamage = 25;
     void Start()
     {
         timemanager = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
         HealthBar = GameObject.FindGameObjectWithTag("UIHealth").GetComponent<HealthBar>();
-        powersOn = GameObject.FindGameObjectWithTag("Power_selecter").GetComponent<Select_powers>();
+        currentpower = GameObject.FindGameObjectWithTag("Power_selecter").GetComponent<Select_powers>();
+        Movement = gameObject.GetComponent<PlayerMove>();
         //animator = GetComponent<Animator>();
         Current_health = maxPlayer_health;
         HealthBar.SetMaxHealth(maxPlayer_health);
         Time.timeScale = 0.4f;
-        Invoke("Timenormal", 1f);
+        Invoke("Timenormal", 2f);
     }
 
     void Timenormal() 
     {
      // This fuction returns time to normals after a few seconds of slow time at the beginning of the player spawn
      Time.timeScale = 1f;
-        Debug.Log("Timenormal");
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(powersOn.slowIsClick == true && Input.GetMouseButtonDown(1) && timemanager.cooldown == false) 
+        if(currentpower.isslowcurrent == true && Input.GetMouseButtonDown(1) && timemanager.cooldown == false) 
         {
                 Toggletime();
         }
@@ -63,14 +70,15 @@ public class Player : MonoBehaviour
             HealthBar.SetPlayerHealth(Current_health);
         }
 
-        //CODE TO RESET ROOM FOR DEBUG TESTING 
-       /* if (Input.GetKeyDown("6"))
-        {
-            Debug.Log("ESCAPE");
-            SceneManager.LoadScene(1);
-        }*/
 
-        //HEALTH VALUES
+        //Switching powers code, takes from the power_selecter obj to switch between powers
+
+        if (Input.GetKeyDown("q") && timemanager.TimeIsSlow == false
+            && timemanager.isRewinding == false)//If reversetime is not active and slow time is active whwnq is pressed...
+        {
+            TogglePowers();
+        }
+        //HEALTH VALUES, testing what works
 
         
         /*if(Player_health <= 100) 
@@ -100,6 +108,7 @@ public class Player : MonoBehaviour
                 animator.SetBool("IsBleeding", true);
                 animator.applyRootMotion = false;
                 animator.SetFloat("SpeedM", 0.5f);
+                Movement.currentspeed = BleedSpeed;
                 Invoke("reload", 2f);
                 CancelInvoke("ReverseDeath");
             }
@@ -107,6 +116,7 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("ISREVERSING");
                 animator.SetFloat("SpeedM", -0.5f);
+                Movement.currentspeed = Movement.setspeed;
                 CancelInvoke("reload");
                 Invoke("ReverseDeath", 2f);
             
@@ -115,10 +125,9 @@ public class Player : MonoBehaviour
 
         }
 
+        //FOR DEBUG TESTING ONLY
         if (Input.GetKeyDown("t")) 
         {
-            //Debug.Log(Current_health);
-            //Debug.Log(Current_health);
             Current_health -= pDamage;
         }
 
@@ -149,5 +158,22 @@ public class Player : MonoBehaviour
         }
         
     
+    }
+
+    void TogglePowers() 
+    {
+        //Toggle between reverse and slow time when Q is pressed
+
+        powertoggle = !powertoggle;
+
+        if (powertoggle)
+        {
+            currentpower.selectReverseTime();
+        }
+        else
+        {
+            currentpower.selectSlowTime();
+        }
+
     }
 }

@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Ai_Fov : MonoBehaviour
 {
     
-   
+   //FOV SET UP (NEEDS title)
     //For Chase PLAYER
-    public bool IsPursuing = false;
+    public bool IsSeen = false;
 
     //The field of view
     public float distance = 10;
@@ -23,12 +24,76 @@ public class Ai_Fov : MonoBehaviour
     public LayerMask occlusionLayers;
 
 
-
     Collider[] colliders = new Collider[50];
     Mesh mesh;
     int count;
     float scanInterval;
     float scanTimer;
+
+
+    //AI ACTION VARIABLES (Needs title)
+    //Attack Code start
+    //bullet
+    public GameObject bullet;
+    // public GameObject currentBullet;
+    //bullet force
+    public float shootForce, upwardForce;
+
+    //Gun stats
+    public float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
+    //public int magazineSize, bulletsPerTap;
+    //public bool allowButtonHold;
+
+    //int bulletsLeft, bulletShot;
+
+    //bools
+    bool readyToShoot;
+
+    //Refrences
+    public Camera fpsCam;
+    public Transform attackPoint;
+
+    //Attack Code end 
+
+    //scripts
+    private TimeBody TimeIsSlow;
+
+    public NavMeshAgent agent;
+
+    public Transform player;
+
+
+    public LayerMask whatIsGround, whatIsPlayer;
+
+    //Patroling
+    public Vector3 walkPoint;
+    bool walkPointSet;
+    public float walkPointRange;
+
+    //PATROL V2
+    public Vector3 PatrolPoint;
+    public Transform[] waypoints;
+    int waypointIndex;
+    Vector3 Target;
+
+    //Attacking 
+    public float timeBetweenAttacks;
+    public float DefualtAttackTime;
+    bool alreadyAttacked;
+    public float TimeSlow;
+    public float TimeStop;
+    //States
+   // public float sightRange, attackRange;
+    public bool playerInAttackRange;
+
+    // time stop
+
+    private TimeManager timemanager;
+
+    private bool delay;
+    private float delayTimer = 10;
+
+    public float Speed;
 
     // Start is called before the first frame update
     void Start()
@@ -36,14 +101,9 @@ public class Ai_Fov : MonoBehaviour
         scanInterval = 1.0f / scanFrequency;
     }
 
-    // Update is called once per frame
     void Update()
     {
-
-        //Debug.Log("PlayTimes =" + Playtimes);
-        //CHASE PLAYER
         Pursue();
-
         scanTimer -= Time.deltaTime;
         if (scanTimer < 0)
         {
@@ -51,6 +111,13 @@ public class Ai_Fov : MonoBehaviour
             Scan();
 
         }
+
+        //if player is not in FOV then Patrol
+        if (IsSeen == false && !playerInAttackRange && delay == false) patroling();
+        //If the player is Seen then emey moves to attack range
+        if (IsSeen == true && !playerInAttackRange && delay == false) ChasePlayer();
+        //when in attack range, Shoot the player
+        if (IsSeen == true && playerInAttackRange && delay == false) AttackPlayer();
     }
 
     private void Scan()
@@ -210,8 +277,9 @@ public class Ai_Fov : MonoBehaviour
             if (obj.tag == "Player")
             {
                 //Debug.Log("CHASE AND KILL");
-                IsPursuing = true;
+                IsSeen = true;
                 Invoke("AfterPursue", 10);
+               
 
             }
         }
@@ -221,7 +289,7 @@ public class Ai_Fov : MonoBehaviour
     {
 
         //If player is not in sight anymore then stop pursuing and reset to patroling
-        IsPursuing = false;
+        IsSeen = false;
         Invoke("Pursue", 0);
 
 
@@ -253,5 +321,156 @@ public class Ai_Fov : MonoBehaviour
         }
 
 
+    }
+
+
+
+    void patroling()
+    {
+
+
+        // IF distance is less than 1 then update patrol information
+        if (Vector3.Distance(transform.position, Target) < 1.5)
+        {
+            IterateWaypointIndex();
+            patrolingWalkPoint();
+
+        }
+
+
+    }
+
+    //AI ACTIONS (Not part of FOV Set up)
+    void SearchWalkPoint()
+    {
+        Debug.Log(walkPoint);
+        float randomZ = Random.Range(-walkPointRange, walkPointRange);
+        float randomX = Random.Range(-walkPointRange, walkPointRange);
+
+        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+
+        if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
+            walkPointSet = true;
+    }
+
+    void patrolingWalkPoint()
+    {
+        Target = waypoints[waypointIndex].position;
+        agent.SetDestination(Target);
+    }
+
+    void IterateWaypointIndex()
+    {
+        //Increase waypoint index by 1
+        waypointIndex++;
+        // Resets waypoints back to zero
+        if (waypointIndex == waypoints.Length)
+        {
+            waypointIndex = 0;
+        }
+
+    }
+
+    void ChasePlayer()
+    {
+
+        agent.SetDestination(player.position);
+        // Debug.Log("CHASING PLAYER");
+        //Debug.Log("Off Sight =" + sightRange);
+        // Debug.Log(player.position);
+
+        agent.SetDestination(player.transform.position);  //go to player
+
+        if (agent.remainingDistance <= agent.stoppingDistance)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position), 10f * Time.deltaTime); //Look at player
+
+        }
+
+
+    }
+
+    void AttackPlayer()
+    {
+
+        if (timemanager.isRewinding == false && delay == false)
+        {
+            // Debug.Log("DONT LOOK =" + timemanager.isRewinding);
+            agent.SetDestination(transform.position);
+            transform.LookAt(player);
+            // Debug.Log("Player is looked at");
+
+            if (!alreadyAttacked)
+            {
+                //attack code
+
+                //Debug.Log("player is shot");
+
+                shoot();
+
+                alreadyAttacked = true;
+                Invoke(nameof(resetAttack), timeBetweenAttacks);
+
+            }
+        }
+
+
+    }
+
+    void resetAttack()
+    {
+
+        alreadyAttacked = false;
+
+    }
+
+    void shoot()
+    {
+        readyToShoot = false;
+
+        Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Ray through the middle of the screen
+        RaycastHit hit;
+
+        //Checks to hit something
+        Vector3 targetPoint;
+        if (Physics.Raycast(ray, out hit))
+            targetPoint = hit.point;
+        else
+            targetPoint = ray.GetPoint(75); // a point far away from self
+
+        // calculate direction from target
+        Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
+
+        // calculate spread
+        float x = Random.Range(-spread, spread);
+        float y = Random.Range(-spread, spread);
+
+        // calculate new direction with spread
+        Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
+
+        //Create the Projectile
+        GameObject currentBullet = Instantiate(bullet, attackPoint.position, attackPoint.rotation);
+
+
+        currentBullet.GetComponent<Rigidbody>().velocity = currentBullet.transform.forward * shootForce;
+        //Roatate Bullet in shoot direction
+
+
+    }
+
+    void Checkdelay()
+    {
+
+        if (timemanager.isRewinding == false && delay == true)
+        {
+
+            Invoke("playdelay", 0.8f);
+        }
+
+    }
+    void playdelay()
+    {
+        //Debug.Log("Delay Played");
+        delay = false;
     }
 }

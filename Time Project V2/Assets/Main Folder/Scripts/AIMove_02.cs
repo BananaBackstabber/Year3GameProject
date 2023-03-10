@@ -80,6 +80,7 @@ public class AIMove_02 : MonoBehaviour
         patrolingWalkPoint();
         timemanager = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -100,7 +101,7 @@ public class AIMove_02 : MonoBehaviour
         // if Time Is not stopped then
         if (!timemanager.TimeIsSlow && !timemanager.isRewinding)
         {
-            //Debug.Log("TimeOff");
+            
             timeBetweenAttacks = DefualtAttackTime;
             agent.speed = Speed;
             //agent.velocity = agent.velocity;
@@ -169,24 +170,6 @@ public class AIMove_02 : MonoBehaviour
 
 
     }
-    void Randompatroling()
-    {
-        // Debug.Log("WALKING AROUND");
-        if (!walkPointSet) SearchWalkPoint();
-
-        if (walkPointSet)
-        {
-            agent.SetDestination(walkPoint);
-        }
-
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
-
-        if (distanceToWalkPoint.magnitude < 1f)
-            walkPointSet = false;
-
-    }
-
-
 
     void SearchWalkPoint()
     {

@@ -46,7 +46,7 @@ public class PRewind : MonoBehaviour
 
        
 
-        if(poweractive.reverseIsClick == true) 
+        if(poweractive.isreversecurrent == true) 
         {
             //Debug.Log("RIGHTCLICKR");
             if (Input.GetMouseButtonDown(1) && TimeManager.cooldown == false && TimeManager.TimeIsSlow == false)

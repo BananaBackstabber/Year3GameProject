@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1374276386739265631}
   m_Layer: 5
   m_Name: Power_selecter
-  m_TagString: Untagged
+  m_TagString: Power_selecter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24,7 +24,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8714593766883340547}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -48,5 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e637465baf1ac494bbd2171063106b9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reverseIsClick: 0
-  slowIsClick: 1
+  isreversecurrent: 0
+  isslowcurrent: 0
+  TimeSlowImage: {fileID: 0}
+  TimeReverseImage: {fileID: 0}

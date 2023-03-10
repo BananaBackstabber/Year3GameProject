@@ -17,7 +17,6 @@ public class PowerPickUp : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             timemanager.TimeGauge += TimeBack;
-            Debug.Log("Pick up Power");
             Destroy(gameObject);
 
         

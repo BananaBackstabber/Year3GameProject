@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098a7835897c35f429e318c8a3a8db74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UI: {fileID: 0}
+  DrainBar: {fileID: 0}
   rendererData: {fileID: 11400000, guid: 4a8e21d5c33334b11b34a596161b9360, type: 2}
   featureName: 
   transitionPeriod: 1
@@ -58,9 +58,6 @@ MonoBehaviour:
   FastTimeDrain: 0.5
   TimePowersRecharge: 1
   timeMat: {fileID: 2100000, guid: 44b80c8b2224dad4a8105451cdaa77a9, type: 2}
-  TimeSlowImage: {fileID: 0}
-  TimeReverseImage: {fileID: 0}
-  FastTimeImage: {fileID: 0}
 --- !u!114 &604210990
 MonoBehaviour:
   m_ObjectHideFlags: 0

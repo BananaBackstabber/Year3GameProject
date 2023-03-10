@@ -67,6 +67,7 @@ public class AIMove : MonoBehaviour
     private float delayTimer = 10;
 
     public float Speed;
+    public float chaseSpeed;
     private void Awake()
     {
        // player = GameObject.Find("Player").transform;
@@ -79,6 +80,7 @@ public class AIMove : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         patrolingWalkPoint();
         timemanager = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
+        agent.speed = Speed;
     }
     // Update is called once per frame
     void Update()
@@ -158,9 +160,9 @@ public class AIMove : MonoBehaviour
     void patroling() 
     {
 
-       
+        
         // IF distance is less than 1 then update patrol information
-        if(Vector3.Distance(transform.position, Target) < 1.5) 
+        if (Vector3.Distance(transform.position, Target) < 1.5) 
         {
             IterateWaypointIndex();
             patrolingWalkPoint();
@@ -228,6 +230,7 @@ public class AIMove : MonoBehaviour
 
         agent.SetDestination(player.transform.position);  //go to player
 
+       // agent.speed = chaseSpeed;
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position), 10f * Time.deltaTime); //Look at player

@@ -11,7 +11,9 @@ public class PlayerMove : MonoBehaviour
 
     private Vector3 move_direction;
 
-    public float speed = 5f;
+    public float setspeed;
+    public float currentspeed;
+
     private float gravity = 20f;
     public float max_gravity;
 
@@ -52,7 +54,7 @@ public class PlayerMove : MonoBehaviour
             move_direction = new Vector3(Input.GetAxis(Axis.HORIZONTAL), 0f,
                                          Input.GetAxis(Axis.VERTICAL));
             move_direction = transform.TransformDirection(move_direction);
-            move_direction *= speed * Time.deltaTime;
+            move_direction *= currentspeed * Time.deltaTime;
 
             ApplyGravity();
             Character_Controller.Move(move_direction);

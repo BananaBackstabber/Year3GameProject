@@ -83,8 +83,8 @@ public class Spawn_player : MonoBehaviour, IClick
         Cursor.SetActive(false);
         TopCam.SetActive(false);
         Player_UI.SetActive(true);
-        Planning_UI1.SetActive(false);
-        Planning_UI2.SetActive(false);
+       // Planning_UI1.SetActive(false);
+       // Planning_UI2.SetActive(false);
 
 
         Win_condition = true;
