@@ -11,6 +11,7 @@ public class LaserDeath : MonoBehaviour
 
     //Animator Variables
     public Animator animator;
+    public TimeManager timemanager;
    
     private float laserSpeed = 1f;
 
@@ -19,6 +20,7 @@ public class LaserDeath : MonoBehaviour
     private void Awake()
     {
         playerhp = null;
+        timemanager = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
     }
 
     private void Update()
@@ -37,9 +39,21 @@ public class LaserDeath : MonoBehaviour
             animator.SetBool("isSensorTriggered", false);
         }
 
+        if(timemanager.TimeIsSlow == true) 
+        {
+            animator.SetFloat("laserSpeed", 0.25f);
+        }
+        else if (timemanager.isRewinding == true) 
+        {
+            animator.SetFloat("laserSpeed", 0f);
+        }
+        else 
+        {
+            animator.SetFloat("laserSpeed", 2f);
+        }
 
-
-        if (laseron == true)//Drains laser
+        if (laseron == true && timemanager.TimeIsSlow == false
+            && timemanager.isRewinding == false)//Drains laser
         {
             uptime -= 2f * Time.deltaTime;
         }
@@ -48,7 +62,6 @@ public class LaserDeath : MonoBehaviour
         {
             uptime = 0f;
             animator.SetBool("isSensorTriggered", false);
-            animator.SetFloat("laserSpeed", 0.5f);
             laseron = false;
 
             //Invoke("Recharge", 2f);
@@ -77,8 +90,12 @@ public class LaserDeath : MonoBehaviour
         }
 
         if (other.gameObject.tag == "Player")//Player takes damages from laser
-        { 
+        {
+            if (!timemanager.isRewinding) 
+            {
             playerhp.Current_health -= laserdamage;
+            }
+            
         }
 
         if (other.gameObject.tag == "Hit")//enemy will take damage from laser
@@ -86,6 +103,17 @@ public class LaserDeath : MonoBehaviour
             enemyhp = GameObject.FindGameObjectWithTag("Hit").GetComponent<Enemy_Health>();
             enemyhp.Health -= enemydamage;
         }
+
+        if (other.gameObject.layer == 8)
+        {
+            Debug.Log("Ground");
+            animator.SetFloat("laserSpeed", 0f);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
     }
 
     public void OnSensor() 

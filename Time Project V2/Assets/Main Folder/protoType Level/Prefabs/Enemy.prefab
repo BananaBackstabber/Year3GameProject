@@ -523,7 +523,8 @@ MonoBehaviour:
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
   PatrolPoint: {x: 0, y: 0, z: 0}
-  waypoints: []
+  waypoints:
+  - {fileID: 2914381755708210429}
   timeBetweenAttacks: 1
   DefualtAttackTime: 0.7
   TimeSlow: 1
@@ -533,6 +534,7 @@ MonoBehaviour:
   playerInSightRange: 0
   playerInAttackRange: 0
   Speed: 5
+  chaseSpeed: 0
 --- !u!195 &2914381755708210424
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -584,6 +586,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeBeforeAffected: 0
+  timemanager: {fileID: 0}
   IsStopped: 0
 --- !u!114 &4604733682797243391
 MonoBehaviour:

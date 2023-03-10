@@ -150,6 +150,7 @@ MonoBehaviour:
   playerInSightRange: 0
   playerInAttackRange: 0
   Speed: 5
+  chaseSpeed: 0
 --- !u!195 &3553912426245487187
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -201,6 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeBeforeAffected: 0
+  timemanager: {fileID: 0}
   IsStopped: 0
 --- !u!114 &2793554079904656724
 MonoBehaviour:
@@ -216,6 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 100
   timePickUp: {fileID: 6628904777338196505, guid: e6343e1d217995a45876e18ab306bb7c, type: 3}
+  damagefrombullet: 0
 --- !u!114 &1811571034492837206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,10 +247,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 540162f4b7d870942aafadf08b4be289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsPursuing: 0
-  distance: 15
-  angle: 90
-  height: 9
+  IsSeen: 0
+  distance: 20.8
+  angle: 82.65
+  height: 3.5
   meshColor: {r: 1, g: 0, b: 0, a: 1}
   scanFrequency: 30
   layers:
@@ -257,6 +260,33 @@ MonoBehaviour:
   occlusionLayers:
     serializedVersion: 2
     m_Bits: 0
+  bullet: {fileID: 0}
+  shootForce: 0
+  upwardForce: 0
+  timeBetweenShooting: 0
+  spread: 0
+  reloadTime: 0
+  timeBetweenShots: 0
+  fpsCam: {fileID: 0}
+  attackPoint: {fileID: 0}
+  agent: {fileID: 0}
+  player: {fileID: 0}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 0
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 0
+  walkPoint: {x: 0, y: 0, z: 0}
+  walkPointRange: 0
+  PatrolPoint: {x: 0, y: 0, z: 0}
+  waypoints: []
+  timeBetweenAttacks: 0
+  DefualtAttackTime: 0
+  TimeSlow: 0
+  TimeStop: 0
+  playerInAttackRange: 0
+  Speed: 0
 --- !u!1 &3553912426465657125
 GameObject:
   m_ObjectHideFlags: 0
