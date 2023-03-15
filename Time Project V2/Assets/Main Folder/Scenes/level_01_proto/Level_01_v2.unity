@@ -5966,7 +5966,7 @@ GameObject:
   - component: {fileID: 370643744}
   - component: {fileID: 370643743}
   - component: {fileID: 370643742}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39550,7 +39550,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh19572
+  m_Name: pb_Mesh35898
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -42903,11 +42903,19 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1838650677601020336, guid: fe31be7349ffc474293a78d611aea3f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1838650677605403417, guid: fe31be7349ffc474293a78d611aea3f5, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1838650678259654444, guid: fe31be7349ffc474293a78d611aea3f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838650678636504999, guid: fe31be7349ffc474293a78d611aea3f5, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

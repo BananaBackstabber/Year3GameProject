@@ -111,7 +111,6 @@ public class TimeManager : MonoBehaviour
         //Cooldown actives player can not use time powers while cooldown is active
         if (TimeGauge <= 0) 
         {
-            Debug.Log("NOTIME");
             ContinueTime();
             //cooldown = true;
         }

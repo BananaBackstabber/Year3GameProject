@@ -8,7 +8,7 @@ public class LaserSensor : MonoBehaviour
     
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log("SENSORTRIPPED");
+       // Debug.Log("SENSORTRIPPED");
         laser.OnSensor();
     }
 

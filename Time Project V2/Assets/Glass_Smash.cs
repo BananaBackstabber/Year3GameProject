@@ -10,7 +10,7 @@ public class Glass_Smash : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("WORKING");
+       // Debug.Log("WORKING");
         Instantiate(brokenGlass, transform.position, transform.rotation);
         Destroy(gameObject);
     }

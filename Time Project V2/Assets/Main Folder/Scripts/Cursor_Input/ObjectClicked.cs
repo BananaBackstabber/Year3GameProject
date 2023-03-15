@@ -18,20 +18,16 @@ public class ObjectClicked : MonoBehaviour, IClick
     void Update()
     {
 
-       
-
         if (Input.GetMouseButtonDown(0))
         {
-
-           
             RaycastHit hit;
             Ray ray = Topcam.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out hit, 1000.0f))
+            if (Physics.Raycast(ray, out hit, 1000.0f))// Draw a raycast when player presses left mouse click
             {
-                if (hit.transform != null)
+                if (hit.transform != null) // if the raycast hits something then...
                 {
-                   //Debug.Log("Hit =" + hit.collider);
+                   //perform the Onclick action(AKA spawn player at entry point ect...)
                     IClick click = hit.collider.gameObject.GetComponent<IClick>();
                     if (click != null) click.onClickAction();
                     

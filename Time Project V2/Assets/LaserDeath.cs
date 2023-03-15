@@ -9,6 +9,8 @@ public class LaserDeath : MonoBehaviour
     public Player playerhp;
     public Enemy_Health enemyhp;
 
+    private float nspeed = 2f;
+
     //Animator Variables
     public Animator animator;
     public TimeManager timemanager;
@@ -17,15 +19,18 @@ public class LaserDeath : MonoBehaviour
 
     private float uptime = 5f;
     private bool laseron = false;
+
+    private bool wallstop = false;
     private void Awake()
     {
         playerhp = null;
+        enemyhp = null;
         timemanager = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
     }
 
     private void Update()
     {
-        Debug.Log("LASER..." + uptime + laseron);
+        //Debug.Log("LASER..." + uptime + laseron);
 
         if (Input.GetKeyDown("t")) 
         {
@@ -43,13 +48,13 @@ public class LaserDeath : MonoBehaviour
         {
             animator.SetFloat("laserSpeed", 0.25f);
         }
-        else if (timemanager.isRewinding == true) 
+        else if (timemanager.isRewinding == true || wallstop == true) 
         {
             animator.SetFloat("laserSpeed", 0f);
         }
-        else 
+        else if(wallstop == false) 
         {
-            animator.SetFloat("laserSpeed", 2f);
+            animator.SetFloat("laserSpeed", nspeed);
         }
 
         if (laseron == true && timemanager.TimeIsSlow == false
@@ -72,19 +77,21 @@ public class LaserDeath : MonoBehaviour
             if (uptime < 5f)//...Untill float varaible hits 5
             {
                 uptime += 1f * Time.deltaTime;
+                
             }
         }
 
         if (uptime > 5f)//stops the laser from over recharging  
         {
             uptime = 5f;
-           // CancelInvoke("Recharge");
+            wallstop = false;
+            // CancelInvoke("Recharge");
         }
     }
     private void OnTriggerStay(Collider other)
     {
 
-        if(playerhp == null)//should only read and GetComponent once
+        if(playerhp == null && other.gameObject.tag == "Player")//should only read and GetComponent once
         {
             playerhp = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         }
@@ -100,21 +107,21 @@ public class LaserDeath : MonoBehaviour
 
         if (other.gameObject.tag == "Hit")//enemy will take damage from laser
         {
+            Debug.Log("RAY HIT");
             enemyhp = GameObject.FindGameObjectWithTag("Hit").GetComponent<Enemy_Health>();
             enemyhp.Health -= enemydamage;
         }
 
-        if (other.gameObject.layer == 8)
+        if(other.gameObject.layer == 8) 
         {
             Debug.Log("Ground");
-            animator.SetFloat("laserSpeed", 0f);
+            wallstop = true;
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
         
+
     }
+    
+
 
     public void OnSensor() 
     {
@@ -122,7 +129,7 @@ public class LaserDeath : MonoBehaviour
         if (uptime == 5f) 
         {
             laseron = true;
-            Debug.Log("LASER IS ON");
+          //  Debug.Log("LASER IS ON");
             animator.SetFloat("laserSpeed", 2f);
             animator.SetBool("isSensorTriggered", true);
             

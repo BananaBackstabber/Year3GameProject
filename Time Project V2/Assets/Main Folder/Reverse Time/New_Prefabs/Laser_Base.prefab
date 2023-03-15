@@ -380,7 +380,7 @@ GameObject:
   - component: {fileID: 5473967353588092651}
   m_Layer: 16
   m_Name: laser_Sensor
-  m_TagString: Untagged
+  m_TagString: Laser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -410,8 +410,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 20.199541, y: 3.3142865, z: 2.9699907}
-  m_Center: {x: 9.599773, y: 1.1571434, z: 0.47914478}
+  m_Size: {x: 17.031403, y: 2.9989724, z: 2.9699907}
+  m_Center: {x: 9.386725, y: 0.1690705, z: 0.47914478}
 --- !u!114 &5473967353588092651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,9 +438,9 @@ GameObject:
   - component: {fileID: 5473967354315717013}
   - component: {fileID: 5473967354315717034}
   - component: {fileID: 5473967354315717035}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Laser_Base
-  m_TagString: Untagged
+  m_TagString: Laser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

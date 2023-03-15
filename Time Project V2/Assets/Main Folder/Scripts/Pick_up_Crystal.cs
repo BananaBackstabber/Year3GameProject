@@ -15,14 +15,8 @@ public class Pick_up_Crystal : MonoBehaviour
         // AKA The Win codition has been met
         if(other.gameObject.tag == "Player") 
         {
-
-
-
-            
-            Debug.Log("WIN ACTIVE");
             Spawn.RunWin = true;
             Destroy(gameObject);
-            Debug.Log(Spawn.RunWin);
         }
     }
 

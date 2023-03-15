@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class AIMove : MonoBehaviour
 {
+    //FOV Script
+    public Ai_Fov fov;
+
     //Attack Code start
     //bullet
     public GameObject bullet;
@@ -68,6 +71,7 @@ public class AIMove : MonoBehaviour
 
     public float Speed;
     public float chaseSpeed;
+
     private void Awake()
     {
        // player = GameObject.Find("Player").transform;
@@ -78,7 +82,7 @@ public class AIMove : MonoBehaviour
     {
         //Refrence to NAvmesh agent so the AI can navigate the navmesh
         agent = GetComponent<NavMeshAgent>();
-        patrolingWalkPoint();
+        //patrolingWalkPoint();
         timemanager = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
         agent.speed = Speed;
     }
@@ -147,23 +151,26 @@ public class AIMove : MonoBehaviour
             //AI Movement
             playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
             playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-            
-            //AI CHANGES IN STATE
-            if (!playerInSightRange && !playerInAttackRange && delay == false) patroling();
-            if (playerInSightRange && !playerInAttackRange && delay == false) ChasePlayer();
-            if (playerInSightRange && playerInAttackRange && delay == false) AttackPlayer();
-        
 
-       
+        //if player is not in FOV then Patrol
+        if (fov.IsSeen == false && !playerInAttackRange && delay == false) patroling();
+        //If the player is Seen then emey moves to attack range
+        if (fov.IsSeen == true && !playerInAttackRange && delay == false) ChasePlayer();
+        //when in attack range, Shoot the player
+        if (fov.IsSeen == true && playerInAttackRange && delay == false) AttackPlayer();
+
+
+
 
     }
     void patroling() 
     {
 
-        
+        patrolingWalkPoint();
         // IF distance is less than 1 then update patrol information
         if (Vector3.Distance(transform.position, Target) < 1.5) 
         {
+            Debug.Log("WAlk");
             IterateWaypointIndex();
             patrolingWalkPoint();
 
