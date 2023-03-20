@@ -15,6 +15,7 @@ public class Pick_up_Crystal : MonoBehaviour
         // AKA The Win codition has been met
         if(other.gameObject.tag == "Player") 
         {
+            FindObjectOfType<audiomanager>().Play("Relic_pick_up");
             Spawn.RunWin = true;
             Destroy(gameObject);
         }

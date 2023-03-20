@@ -37,7 +37,7 @@ public class audiomanager : MonoBehaviour
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
 
-        if (!timemanager.TimeIsSlow || Time.timeScale == 1f) 
+        if (!timemanager.TimeIsSlow) 
         {
             //Restes the sound to its normal pitch setting after slow time is off
             slowingtime = s.normalpitch;
@@ -54,6 +54,13 @@ public class audiomanager : MonoBehaviour
     private void Update()
     {
         SlowSound();
+
+        if(timemanager.TimeIsSlow == false) 
+        {
+            Sound s = Array.Find(sounds, sound => sound.name == "Recharge Power Pick Up");
+            slowingtime = s.normalpitch;
+            s.pitch = slowingtime;
+        }
     }
 
 
@@ -62,15 +69,14 @@ public class audiomanager : MonoBehaviour
         //Sound s = Array.Find(sounds, sound => sound.name == name);
 
         //when slow time is active this code should decreas ethe spped of the sound
-        if (timemanager.TimeIsSlow == true && slowingtime >= mintime)
+        if (timemanager.TimeIsSlow == true)
         {
             slowingtime -= timedrain * Time.deltaTime; 
 
-            if(slowingtime <= 0.3f) 
+            if(slowingtime <= mintime) 
             {
                 slowingtime = mintime;
             }
-
 
         }
 
@@ -78,7 +84,7 @@ public class audiomanager : MonoBehaviour
 
     public void TimeScaleSlow() 
     {
-        slowingtime = 0.3f;
+       // slowingtime = 0.3f;
     }
 
     public void TimeScaleNormal() 

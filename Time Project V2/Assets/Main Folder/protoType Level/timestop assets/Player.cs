@@ -90,6 +90,8 @@ public class Player : MonoBehaviour
             if(animator.GetBool("IsBleeding") == false && timemanager.isRewinding == false) 
             {
                 FindObjectOfType<audiomanager>().Play("Death Slow");
+                Player_Pistol pistolanim = GameObject.Find("Player-Pistol-01").GetComponent<Player_Pistol>();
+                pistolanim.NoRoot();
             }
            
             //Is time is not reverse then the player is bleeding out
@@ -106,7 +108,6 @@ public class Player : MonoBehaviour
             }// If time is reverseing then the player will reverse their bleed out state
             else if(timemanager.isRewinding == true) 
             {
-                Debug.Log("ISREVERSING");
                 animator.SetFloat("SpeedM", -0.5f);
                 Movement.currentspeed = Movement.setspeed;
                 CancelInvoke("reload");
@@ -132,9 +133,14 @@ public class Player : MonoBehaviour
 
     void ReverseDeath()
     {
-        Debug.Log("ISNOTDEAD");
+        Player_Pistol pistolanim = GameObject.Find("Player-Pistol-01").GetComponent<Player_Pistol>();
+        
         animator.SetBool("IsBleeding", false);
         animator.applyRootMotion = true;
+        pistolanim.Root();
+
+
+
     }
     void Toggletime()
     {

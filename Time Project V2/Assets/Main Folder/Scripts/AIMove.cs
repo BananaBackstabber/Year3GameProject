@@ -170,7 +170,7 @@ public class AIMove : MonoBehaviour
         // IF distance is less than 1 then update patrol information
         if (Vector3.Distance(transform.position, Target) < 1.5) 
         {
-            Debug.Log("WAlk");
+            
             IterateWaypointIndex();
             patrolingWalkPoint();
 
