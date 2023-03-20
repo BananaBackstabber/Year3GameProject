@@ -35,6 +35,7 @@ public class Enemy_Health : MonoBehaviour
         {
             //Debug.Log("SHOT" + Health);
             Health -= damagefrombullet;
+            FindObjectOfType<audiomanager>().Play("Player gun Hit");
         }
     }
 }

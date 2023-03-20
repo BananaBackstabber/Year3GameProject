@@ -31,12 +31,14 @@ public class Player : MonoBehaviour
     private float pDamage = 25;
     void Start()
     {
+        //Sets and finds scripts
         timemanager = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
         HealthBar = GameObject.FindGameObjectWithTag("UIHealth").GetComponent<HealthBar>();
         currentpower = GameObject.FindGameObjectWithTag("Power_selecter").GetComponent<Select_powers>();
-       // Laser = GameObject.FindGameObjectWithTag("Laser").GetComponent<LaserDeath>();
+        // Laser = GameObject.FindGameObjectWithTag("Laser").GetComponent<LaserDeath>();
         Movement = gameObject.GetComponent<PlayerMove>();
-        //animator = GetComponent<Animator>();
+
+
         Current_health = maxPlayer_health;
         HealthBar.SetMaxHealth(maxPlayer_health);
         Time.timeScale = 0.4f;

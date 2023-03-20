@@ -130,6 +130,9 @@ public class projectiles : MonoBehaviour
         if ((bulletShot < bulletsPerTap) && (bulletsLeft > 0))
             Invoke("Shoot", timeBetweenShots);
 
+        //Play sound of Gun Shot when player shoots
+        FindObjectOfType<audiomanager>().Play("Player gun shot");
+
 
     }
 
