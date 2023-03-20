@@ -37,8 +37,6 @@ public class Player : MonoBehaviour
         currentpower = GameObject.FindGameObjectWithTag("Power_selecter").GetComponent<Select_powers>();
         // Laser = GameObject.FindGameObjectWithTag("Laser").GetComponent<LaserDeath>();
         Movement = gameObject.GetComponent<PlayerMove>();
-
-
         Current_health = maxPlayer_health;
         HealthBar.SetMaxHealth(maxPlayer_health);
         Time.timeScale = 0.4f;
@@ -72,7 +70,7 @@ public class Player : MonoBehaviour
             //Application.Quit();
         }
 
-        if(timemanager.isRewinding == true) 
+        if(timemanager.isRewinding == true) //Set the health bar to update while time is reversing
         {
             HealthBar.SetPlayerHealth(Current_health);
         }
@@ -85,30 +83,17 @@ public class Player : MonoBehaviour
         {
             TogglePowers();
         }
-        //HEALTH VALUES, testing what works
-
-
-        /*if(Player_health <= 100) 
-        {
-            HealthBar.HealthFill.color = Color.cyan;
-        }
-        if (Player_health <= 50) 
-        {
-            
-            HealthBar.HealthFill.color = Color.yellow;
-        }
-
-        if(Player_health <= 25)
-        {
-            HealthBar.HealthFill.color = Color.red;
-        }*/
-
+  
       
         if (Current_health <= 0) 
         {
-
-          
-            if(timemanager.isRewinding == false) 
+            if(animator.GetBool("IsBleeding") == false && timemanager.isRewinding == false) 
+            {
+                FindObjectOfType<audiomanager>().Play("Death Slow");
+            }
+           
+            //Is time is not reverse then the player is bleeding out
+            if (timemanager.isRewinding == false) 
             {
                 Time.timeScale = 0.4f;
       
@@ -118,7 +103,7 @@ public class Player : MonoBehaviour
                 Movement.currentspeed = BleedSpeed;
                 Invoke("reload", 2f);
                 CancelInvoke("ReverseDeath");
-            }
+            }// If time is reverseing then the player will reverse their bleed out state
             else if(timemanager.isRewinding == true) 
             {
                 Debug.Log("ISREVERSING");

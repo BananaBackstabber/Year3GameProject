@@ -37,7 +37,7 @@ public class audiomanager : MonoBehaviour
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
 
-        if (!timemanager.TimeIsSlow) 
+        if (!timemanager.TimeIsSlow || Time.timeScale == 1f) 
         {
             //Restes the sound to its normal pitch setting after slow time is off
             slowingtime = s.normalpitch;
@@ -74,5 +74,15 @@ public class audiomanager : MonoBehaviour
 
         }
 
+    }
+
+    public void TimeScaleSlow() 
+    {
+        slowingtime = 0.3f;
+    }
+
+    public void TimeScaleNormal() 
+    {
+      
     }
 }

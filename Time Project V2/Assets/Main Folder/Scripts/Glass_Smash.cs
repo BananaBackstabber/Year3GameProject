@@ -12,6 +12,7 @@ public class Glass_Smash : MonoBehaviour
     {
        // Debug.Log("WORKING");
         Instantiate(brokenGlass, transform.position, transform.rotation);
+        FindObjectOfType<audiomanager>().Play("Glass Smash");
         Destroy(gameObject);
     }
 }

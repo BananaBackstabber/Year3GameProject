@@ -10,6 +10,8 @@ public class projectiles : MonoBehaviour
     //Rewind script 
     public TimeManager Time;
 
+    // Gun animations 
+    public Animator guncontroller;
     //bullet
     public GameObject bullet;
    // public GameObject currentBullet;
@@ -133,11 +135,15 @@ public class projectiles : MonoBehaviour
         //Play sound of Gun Shot when player shoots
         FindObjectOfType<audiomanager>().Play("Player gun shot");
 
+        //Play animation of gun firing
+        guncontroller.SetBool("IsShooting", true);
+        
 
     }
 
     void ResetShot()
     {
+        guncontroller.SetBool("IsShooting", false);
         readyToShoot = true;
         allowInvoke = true;
     }

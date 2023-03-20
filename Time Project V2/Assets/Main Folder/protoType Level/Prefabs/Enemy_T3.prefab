@@ -271,7 +271,7 @@ MonoBehaviour:
   scanFrequency: 30
   layers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8
   Objects: []
   occlusionLayers:
     serializedVersion: 2
@@ -526,8 +526,8 @@ MonoBehaviour:
   walkPointRange: 5
   PatrolPoint: {x: 0, y: 0, z: 0}
   waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8031466336360733002}
+  - {fileID: 8031466336360733002}
   timeBetweenAttacks: 1
   DefualtAttackTime: 0.7
   TimeSlow: 1
@@ -605,7 +605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 100
   timePickUp: {fileID: 6628904777338196505, guid: e6343e1d217995a45876e18ab306bb7c, type: 3}
-  damagefrombullet: 0
+  damagefrombullet: 100
 --- !u!114 &5117345715968441930
 MonoBehaviour:
   m_ObjectHideFlags: 0

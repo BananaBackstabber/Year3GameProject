@@ -311,7 +311,10 @@ public class AIMove : MonoBehaviour
 
         currentBullet.GetComponent<Rigidbody>().velocity = currentBullet.transform.forward * shootForce;
         //Roatate Bullet in shoot direction
-        
+
+        //play sound of enemy gun shot
+        FindObjectOfType<audiomanager>().Play("Enemy Rifle shot");
+
 
     }
 

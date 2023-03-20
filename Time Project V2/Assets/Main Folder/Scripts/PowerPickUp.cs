@@ -16,6 +16,7 @@ public class PowerPickUp : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            FindObjectOfType<audiomanager>().Play("Recharge Power Pick Up");
             timemanager.TimeGauge += TimeBack;
             Destroy(gameObject);
         }
