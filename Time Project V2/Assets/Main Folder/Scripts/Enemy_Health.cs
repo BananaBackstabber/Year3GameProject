@@ -23,7 +23,7 @@ public class Enemy_Health : MonoBehaviour
         if (Health <= 0 )
         {
             Destroy(gameObject);
-            Instantiate(timePickUp, transform.position, Quaternion.identity);
+            Instantiate(timePickUp, transform.position + new Vector3(0f, 1f, 0f), Quaternion.identity);
         }
     }
 

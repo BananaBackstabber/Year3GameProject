@@ -70,12 +70,26 @@ public class AIMove : MonoBehaviour
     private float delayTimer = 10;
 
     public float Speed;
+    
     public float chaseSpeed;
+
+    public Animator animator;
+
+    private float animRecordedVelocity;
+
+    private float airecordedvelocity;
+    private float aiRecordedRotation;
+
+    private Vector3 slowedrotation;
+    private Vector3 nrotation;
+    private float rotatespeed = 10f;
+    
 
     private void Awake()
     {
        // player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
 
     }
      void Start()
@@ -89,9 +103,13 @@ public class AIMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        Debug.Log(agent.velocity.magnitude);
+
         if (GameObject.FindGameObjectWithTag("Player"))
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
+            
         }
         else 
         {
@@ -101,29 +119,34 @@ public class AIMove : MonoBehaviour
         //Debug.Log("Agent Velocity" + agent.velocity);
         //Debug.Log("Agent acceleration" + agent.acceleration);
 
-
+        
 
         // if Time Is not stopped then
         if (!timemanager.TimeIsSlow && !timemanager.isRewinding)
         {
-            //Debug.Log("TimeOff");
+            animator.SetFloat("Speed", agent.velocity.magnitude);
+            animRecordedVelocity = agent.velocity.magnitude;
+
             timeBetweenAttacks = DefualtAttackTime;
             agent.speed = Speed;
             //agent.velocity = agent.velocity;
             //agent.acceleration = agent.acceleration;
-           // agent.updateRotation = true;
-
+            //agent.updateRotation = true;
+            agent.angularSpeed = 120;
+            slowedrotation = nrotation;
         }
 
         // if time is slow then
         if (timemanager.TimeIsSlow)
         {
-            
+            animator.SetFloat("Speed", animRecordedVelocity);
             agent.speed = TimeSlow;
             //agent.velocity =  agent.velocity * TimeSlow;
             //agent.acceleration = agent.acceleration * TimeSlow; // stop moving
+             slowedrotation = slowedrotation * TimeSlow;
             //Debug.Log("STOPPED");
             timeBetweenAttacks = 3;
+            agent.angularSpeed = 30;
         }
 
         // if time is reversed then
@@ -165,6 +188,7 @@ public class AIMove : MonoBehaviour
     }
     void patroling() 
     {
+        animator.SetBool("isShooting", false);
 
         patrolingWalkPoint();
         // IF distance is less than 1 then update patrol information
@@ -229,8 +253,9 @@ public class AIMove : MonoBehaviour
 
     void ChasePlayer() 
     {
-        
-            agent.SetDestination(player.position);
+        animator.SetBool("isShooting", false);
+
+        agent.SetDestination(player.position);
           // Debug.Log("CHASING PLAYER");
          //Debug.Log("Off Sight =" + sightRange);
         // Debug.Log(player.position);
@@ -252,9 +277,21 @@ public class AIMove : MonoBehaviour
 
         if(timemanager.isRewinding == false && delay == false) 
         {
-           // Debug.Log("DONT LOOK =" + timemanager.isRewinding);
+            animator.SetBool("isShooting", true);
+
+            //rotatespeed = 0.3f;
+            Vector3 direction = player.position;
+            Quaternion toRotation = Quaternion.FromToRotation(transform.forward, direction);
+            transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, rotatespeed * Time.deltaTime);
+           
             agent.SetDestination(transform.position);
-            transform.LookAt(player);
+            transform.LookAt(direction);
+
+            if(timemanager.TimeIsSlow == true) 
+            {
+                //transform.LookAt(player);
+                //rotatespeed = 1f;
+            }
            // Debug.Log("Player is looked at");
 
             if (!alreadyAttacked)
