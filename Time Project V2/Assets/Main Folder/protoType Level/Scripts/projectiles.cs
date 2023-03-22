@@ -46,6 +46,11 @@ public class projectiles : MonoBehaviour
 
 
     }
+
+    private void Start()
+    {
+        Time = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
+    }
     private void Update()
     {
         MyInput();
@@ -69,7 +74,8 @@ public class projectiles : MonoBehaviour
 
         //Shooting if time is rewind then you can't shoot
        if (readyToShoot && shooting && !reloading && bulletsLeft > 0  && Time.isRewinding == false)
-        { 
+        {
+            Debug.Log("shots" + Time.isRewinding);
             bulletShot = 0;
 
             shoot();

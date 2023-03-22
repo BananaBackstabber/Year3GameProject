@@ -96,16 +96,13 @@ public class AIMove : MonoBehaviour
     {
         //Refrence to NAvmesh agent so the AI can navigate the navmesh
         agent = GetComponent<NavMeshAgent>();
-        //patrolingWalkPoint();
+        //Invoke("patrolingWalkPoint", 2);
         timemanager = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
         agent.speed = Speed;
     }
     // Update is called once per frame
     void Update()
     {
-
-        Debug.Log(agent.velocity.magnitude);
-
         if (GameObject.FindGameObjectWithTag("Player"))
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -132,7 +129,7 @@ public class AIMove : MonoBehaviour
             //agent.velocity = agent.velocity;
             //agent.acceleration = agent.acceleration;
             //agent.updateRotation = true;
-            agent.angularSpeed = 120;
+            //agent.angularSpeed = 120;
             slowedrotation = nrotation;
         }
 
@@ -188,17 +185,28 @@ public class AIMove : MonoBehaviour
     }
     void patroling() 
     {
-        animator.SetBool("isShooting", false);
-
-        patrolingWalkPoint();
-        // IF distance is less than 1 then update patrol information
-        if (Vector3.Distance(transform.position, Target) < 1.5) 
+        if(animator.GetBool("isShooting") == true) 
         {
-            
-            IterateWaypointIndex();
-            patrolingWalkPoint();
+            animator.SetBool("isShooting", false);
+        }
+
+        Invoke("patrolingWalkPoint", 0);
+        // IF distance is less than 1 then update patrol information
+        if (Vector3.Distance(transform.position, Target) < 3) 
+        {
+          
+            //This code makes the Ai stop for a few seconds before 
+            // moving to the next target
+            Invoke("IterateWaypointIndex", 10);
+            Invoke("patrolingWalkPoint", 10);
+
+
+            //IterateWaypointIndex();
+            //patrolingWalkPoint();
 
         }
+
+  
 
 
     }
@@ -236,11 +244,23 @@ public class AIMove : MonoBehaviour
     void patrolingWalkPoint() 
     {
         Target = waypoints[waypointIndex].position;
-        agent.SetDestination(Target);
+
+        if (Vector3.Distance(transform.position, Target) > 3)
+        {//This code stops the AI constantly moving towards the target when I want it to stop in place
+         //without this code the object will just spin when it reaches the target and stops(It does happen a bit still but at a very reduced rate)
+            agent.SetDestination(Target);  
+        }
+        if (Vector3.Distance(transform.position, Target) < 3)
+        {
+            agent.SetDestination(new Vector3(0f, 0f, 0f));
+        }
+
+        CancelInvoke("patrolingWalkPoint");
     }
 
     void IterateWaypointIndex() 
     {
+        
         //Increase waypoint index by 1
         waypointIndex++;
         // Resets waypoints back to zero
@@ -248,7 +268,8 @@ public class AIMove : MonoBehaviour
         {
             waypointIndex = 0;
         }
-    
+
+        CancelInvoke("IterateWaypointIndex");
     }
 
     void ChasePlayer() 

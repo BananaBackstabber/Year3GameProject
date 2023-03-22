@@ -103,9 +103,7 @@ public class TimeManager : MonoBehaviour
 
         if (isfast == true) 
         {
-            TimeGauge -= FastTimeDrain * Time.deltaTime;
-            //Debug.Log("ISfast is active" + TimeGauge);
-            
+            TimeGauge -= FastTimeDrain * Time.deltaTime;  
         }
 
         //Cooldown actives player can not use time powers while cooldown is active
