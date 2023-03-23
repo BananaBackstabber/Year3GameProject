@@ -239,6 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeBeforeAffected: 0.1
+  timemanager: {fileID: 0}
   IsStopped: 0
 --- !u!114 &5397204151765388307
 MonoBehaviour:
@@ -253,7 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player1: {fileID: 0}
-  damage: 20
+  damage: 35
 --- !u!114 &3931041182732564581
 MonoBehaviour:
   m_ObjectHideFlags: 0

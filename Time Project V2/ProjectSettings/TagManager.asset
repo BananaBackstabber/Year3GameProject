@@ -15,6 +15,8 @@ TagManager:
   - Plan_UI2
   - Laser
   - Ground
+  - Audio
+  - Processer
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityStandardAssets.ImageEffects;
 using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
@@ -26,9 +28,12 @@ public class Player : MonoBehaviour
      public Animation BleedAnim;
      private float BleedSpeed = 1;
      public PlayerMove Movement;
-     
+
+    public GameObject postp;
     //DEBUG TESTING STUFF
     private float pDamage = 25;
+
+    //public MusicControl sound;
     void Start()
     {
         //Sets and finds scripts
@@ -36,11 +41,14 @@ public class Player : MonoBehaviour
         HealthBar = GameObject.FindGameObjectWithTag("UIHealth").GetComponent<HealthBar>();
         currentpower = GameObject.FindGameObjectWithTag("Power_selecter").GetComponent<Select_powers>();
         // Laser = GameObject.FindGameObjectWithTag("Laser").GetComponent<LaserDeath>();
+        //sound = GameObject.FindGameObjectWithTag("Audio").GetComponent<MusicControl>();
+        //sound.CombatMusic();
+        postp = GameObject.FindGameObjectWithTag("Processer");
         Movement = gameObject.GetComponent<PlayerMove>();
         Current_health = maxPlayer_health;
         HealthBar.SetMaxHealth(maxPlayer_health);
         Time.timeScale = 0.4f;
-        Invoke("Timenormal", 2f);
+        Invoke("Timenormal", 1f);
     }
 
     void Timenormal() 
@@ -105,6 +113,8 @@ public class Player : MonoBehaviour
                 Movement.currentspeed = BleedSpeed;
                 Invoke("reload", 2f);
                 CancelInvoke("ReverseDeath");
+
+                postp.GetComponent<Volume>().weight += 1f * Time.deltaTime;
             }// If time is reverseing then the player will reverse their bleed out state
             else if(timemanager.isRewinding == true) 
             {
@@ -112,7 +122,8 @@ public class Player : MonoBehaviour
                 Movement.currentspeed = Movement.setspeed;
                 CancelInvoke("reload");
                 Invoke("ReverseDeath", 2f);
-            
+                postp.GetComponent<Volume>().weight = 0f;
+
             }
             
 

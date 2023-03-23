@@ -50,6 +50,15 @@ public class audiomanager : MonoBehaviour
 
 
     }
+    public void Stop(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+
+
+        s.source.Stop();
+
+
+    }
 
     private void Update()
     {
@@ -68,7 +77,7 @@ public class audiomanager : MonoBehaviour
     {
         //Sound s = Array.Find(sounds, sound => sound.name == name);
 
-        //when slow time is active this code should decreas ethe spped of the sound
+        //when slow time is active this code should decrease the speed of the sound
         if (timemanager.TimeIsSlow == true)
         {
             slowingtime -= timedrain * Time.deltaTime; 

@@ -108,13 +108,13 @@ public class LaserDeath : MonoBehaviour
         if (other.gameObject.tag == "Hit")//enemy will take damage from laser
         {
             Debug.Log("RAY HIT");
-            enemyhp = GameObject.FindGameObjectWithTag("Hit").GetComponent<Enemy_Health>();
+          
+            enemyhp = other.gameObject.GetComponent<Enemy_Health>();
             enemyhp.Health -= enemydamage;
         }
 
         if(other.gameObject.layer == 8) 
         {
-            Debug.Log("Ground");
             wallstop = true;
         }
         

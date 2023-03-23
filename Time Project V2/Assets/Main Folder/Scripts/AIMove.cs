@@ -367,7 +367,7 @@ public class AIMove : MonoBehaviour
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, attackPoint.rotation);
         
 
-        currentBullet.GetComponent<Rigidbody>().velocity = currentBullet.transform.forward * shootForce;
+        currentBullet.GetComponent<Rigidbody>().velocity = currentBullet.transform.forward * shootForce + directionWithSpread;
         //Roatate Bullet in shoot direction
 
         //play sound of enemy gun shot

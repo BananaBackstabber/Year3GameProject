@@ -1231,8 +1231,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6300421094261193682}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.0000031590457}
-  m_LocalPosition: {x: -6.56, y: -0.31, z: -6.19}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.55009997, y: 0.55009997, z: 0.55009997}
   m_Children: []
   m_Father: {fileID: 5829116864742338880}
@@ -1251,8 +1251,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsSeen: 0
-  distance: 27.6
-  angle: 170.91
+  distance: 50
+  angle: 150
   height: 2
   meshColor: {r: 1, g: 0, b: 0, a: 1}
   scanFrequency: 30
@@ -1262,7 +1262,7 @@ MonoBehaviour:
   Objects: []
   occlusionLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
 --- !u!1 &6300421094505327522
 GameObject:
   m_ObjectHideFlags: 0
@@ -1737,7 +1737,7 @@ MonoBehaviour:
   TimeSlow: 1
   TimeStop: 0
   sightRange: 0
-  attackRange: 10
+  attackRange: 20
   playerInSightRange: 0
   playerInAttackRange: 0
   Speed: 5

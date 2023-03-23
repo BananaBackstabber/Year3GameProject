@@ -12,7 +12,7 @@ public class Top_Down_Controls : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Camera.main.fieldOfView = m_fov;
+        Camera.main.orthographicSize = m_fov;
     }
 
     // Update is called once per frame
@@ -23,12 +23,12 @@ public class Top_Down_Controls : MonoBehaviour
         if (Input.GetKey("w")) 
         {
             m_fov -= 1;
-            Camera.main.fieldOfView = m_fov;
+            Camera.main.orthographicSize = m_fov;
         }
         if (Input.GetKey("s")) 
         {  
             m_fov += 1;
-            Camera.main.fieldOfView = m_fov;
+            Camera.main.orthographicSize = m_fov;
         }
 
         // If FOV goes over min or max values it is equal to those min or max values
