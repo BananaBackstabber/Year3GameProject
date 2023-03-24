@@ -64,7 +64,7 @@ public class Enemy_Health : MonoBehaviour
     {
         //Debug.Log("Hit_01");
 
-        if(collision.gameObject.name == "Cube Bullet(Clone)")
+        if(collision.gameObject.tag == "Bullet")
         {
             //Debug.Log("SHOT" + Health);
             Health -= damagefrombullet;

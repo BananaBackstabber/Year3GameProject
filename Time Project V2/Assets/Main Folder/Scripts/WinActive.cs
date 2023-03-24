@@ -21,8 +21,8 @@ public class WinActive : MonoBehaviour
         {
             Debug.Log("Next_level");
 
-            SceneManager.LoadScene(nextSceneToLoad);
-            
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
         }
     }
 

@@ -16,6 +16,7 @@ public class Spawn_Enemies_test : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Button_pressed = true;
 
             Debug.Log("ZONE");
             if (Input.GetMouseButtonDown(1))

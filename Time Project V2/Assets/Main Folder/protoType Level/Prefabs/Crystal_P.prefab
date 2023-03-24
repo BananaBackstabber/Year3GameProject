@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6750184948605579789}
   - component: {fileID: 6750184948605579790}
   - component: {fileID: 6750184948605579791}
+  - component: {fileID: 994513641}
   - component: {fileID: 6750184948605579778}
   m_Layer: 0
   m_Name: Crystal_P
@@ -30,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 6750184948605579784}
   m_LocalRotation: {x: -0.48295984, y: -0.25000024, z: 0.066989824, w: 0.8365179}
   m_LocalPosition: {x: 79.944, y: 7.791, z: -87.255}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.238268, y: 1.238268, z: 1.238268}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -109,6 +110,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50a4913afe0be4d43a7b206cb8e3e2ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &994513641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6750184948605579784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31ee54ef686584942a80d635f6d7c040, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openTrigger: 0
+  Button_pressed: 0
+  TheEnemy: {fileID: 6300421094573587146, guid: cb9e180c87cd633479695c4396e25732, type: 3}
 --- !u!114 &6750184948605579778
 MonoBehaviour:
   m_ObjectHideFlags: 0

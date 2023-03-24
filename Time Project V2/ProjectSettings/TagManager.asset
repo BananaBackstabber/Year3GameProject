@@ -17,6 +17,7 @@ TagManager:
   - Ground
   - Audio
   - Processer
+  - Bullet
   layers:
   - Default
   - TransparentFX
