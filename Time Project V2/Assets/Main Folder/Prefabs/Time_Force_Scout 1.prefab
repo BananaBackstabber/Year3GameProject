@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 7943927480744126245}
   - component: {fileID: 4159993925418556890}
   m_Layer: 0
-  m_Name: NAZI
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

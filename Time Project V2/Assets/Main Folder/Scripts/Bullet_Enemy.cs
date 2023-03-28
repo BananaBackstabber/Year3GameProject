@@ -24,7 +24,8 @@ public class Bullet_Enemy : MonoBehaviour
         }
         else if(collision.gameObject.layer == 8)// Check the Int value of the layer 
         {
-            Invoke("bulletDeath", 0.7f);
+            //Invoke("bulletDeath", 0.7f);
+            Destroy(gameObject);
         }
         else 
         {

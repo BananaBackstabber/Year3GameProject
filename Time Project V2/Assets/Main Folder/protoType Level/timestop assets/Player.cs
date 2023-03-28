@@ -74,8 +74,8 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {
             //Current_health -= pDamage;
-            HealthBar.SetPlayerHealth(Current_health);
-            //Application.Quit();
+            //HealthBar.SetPlayerHealth(Current_health);
+            Application.Quit();
         }
 
         if(timemanager.isRewinding == true) //Set the health bar to update while time is reversing
