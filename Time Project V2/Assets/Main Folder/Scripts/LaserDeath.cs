@@ -126,10 +126,10 @@ public class LaserDeath : MonoBehaviour
     public void OnSensor() 
     {
 
-        if (uptime == 5f) 
+        if (uptime == 5f)//Laser has to recharge before it activaties again
         {
             laseron = true;
-          //  Debug.Log("LASER IS ON");
+          
             animator.SetFloat("laserSpeed", 2f);
             animator.SetBool("isSensorTriggered", true);
             

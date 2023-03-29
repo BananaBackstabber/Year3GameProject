@@ -40,20 +40,20 @@ public class MusicControl : MonoBehaviour
                 playermusic.pitch = 0.6f;
             }
             else if (timemanager.TimeIsSlow == true)
-            {
+            {//Slows the music down
                 playermusic.pitch -= speeddrain * Time.deltaTime;
 
                 if (playermusic.pitch <= 0.5f)
-                {
+                {//Caps the slow down pitch
                     playermusic.pitch = 0.5f;
                 }
             }
             else if (timemanager.isRewinding == true)
-            {
+            {// This reverses the music pitch
                 playermusic.pitch = -0.8f;
             }
             else
-            {
+            {//Returns the music to normal pitch
                 playermusic.pitch = normalspeed;
             }
         }

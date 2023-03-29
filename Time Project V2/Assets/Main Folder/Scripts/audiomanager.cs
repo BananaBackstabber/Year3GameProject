@@ -63,13 +63,6 @@ public class audiomanager : MonoBehaviour
     private void Update()
     {
         SlowSound();
-
-        if(timemanager.TimeIsSlow == false) 
-        {
-            Sound s = Array.Find(sounds, sound => sound.name == "Recharge Power Pick Up");
-            slowingtime = s.normalpitch;
-            s.pitch = slowingtime;
-        }
     }
 
 
@@ -77,6 +70,13 @@ public class audiomanager : MonoBehaviour
     {
         //Sound s = Array.Find(sounds, sound => sound.name == name);
 
+        //this code play the sound as normal
+        if (timemanager.TimeIsSlow == false)
+        {
+            Sound s = Array.Find(sounds, sound => sound.name == "Recharge Power Pick Up");
+            slowingtime = s.normalpitch;
+            s.pitch = slowingtime;
+        }
         //when slow time is active this code should decrease the speed of the sound
         if (timemanager.TimeIsSlow == true)
         {

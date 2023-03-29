@@ -85,10 +85,11 @@ public class Player : MonoBehaviour
 
 
         //Switching powers code, takes from the power_selecter obj to switch between powers
-
+        //If reversetime is not active and slow time is active when q is pressed...
         if (Input.GetKeyDown("q") && timemanager.TimeIsSlow == false
-            && timemanager.isRewinding == false)//If reversetime is not active and slow time is active whwnq is pressed...
+            && timemanager.isRewinding == false)
         {
+            //Then Toggle powers
             TogglePowers();
         }
   
@@ -102,37 +103,31 @@ public class Player : MonoBehaviour
                 pistolanim.NoRoot();
             }
            
-            //Is time is not reverse then the player is bleeding out
+            
             if (timemanager.isRewinding == false) 
-            {
+            {//Is time is not reverse then the player is bleeding out
                 Time.timeScale = 0.4f;
       
-                animator.SetBool("IsBleeding", true);
+                animator.SetBool("IsBleeding", true);//Play bleed out animation
                 animator.applyRootMotion = false;
                 animator.SetFloat("SpeedM", 0.5f);
                 Movement.currentspeed = BleedSpeed;
-                Invoke("reload", 2f);
+                Invoke("reload", 2f);//After this Invoke player dies
                 CancelInvoke("ReverseDeath");
 
                 postp.GetComponent<Volume>().weight += 1f * Time.deltaTime;
-            }// If time is reverseing then the player will reverse their bleed out state
-            else if(timemanager.isRewinding == true) 
-            {
-                animator.SetFloat("SpeedM", -0.5f);
+            }
+            else if(timemanager.isRewinding == true)
+            {// If time is reverseing then the player will reverse their bleed out state
+                animator.SetFloat("SpeedM", -0.5f);//This code reverses the animation
                 Movement.currentspeed = Movement.setspeed;
-                CancelInvoke("reload");
+                CancelInvoke("reload");//This code Cancels death
                 Invoke("ReverseDeath", 2f);
                 postp.GetComponent<Volume>().weight = 0f;
 
             }
             
 
-        }
-
-        //FOR DEBUG TESTING ONLY
-        if (Input.GetKeyDown("t")) 
-        {
-            Current_health -= pDamage;
         }
 
     }
@@ -146,13 +141,12 @@ public class Player : MonoBehaviour
     {
         Player_Pistol pistolanim = GameObject.Find("Player-Pistol-01").GetComponent<Player_Pistol>();
         
+        //sets animation to not play
         animator.SetBool("IsBleeding", false);
         animator.applyRootMotion = true;
         pistolanim.Root();
-
-
-
     }
+
     void Toggletime()
     {
         toggle = !toggle;
