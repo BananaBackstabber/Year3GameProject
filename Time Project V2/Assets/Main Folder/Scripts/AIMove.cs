@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class AIMove : MonoBehaviour
 {
+    //FOV Script
+    public Ai_Fov fov;
+
     //Attack Code start
     //bullet
     public GameObject bullet;
@@ -14,13 +17,13 @@ public class AIMove : MonoBehaviour
     
     //Gun stats
     public float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
-    public int magazineSize, bulletsPerTap;
-    public bool allowButtonHold;
+    //public int magazineSize, bulletsPerTap;
+    //public bool allowButtonHold;
 
-    int bulletsLeft, bulletShot;
+    //int bulletsLeft, bulletShot;
 
     //bools
-    bool shooting, readyToShoot, reloading;
+    bool readyToShoot;
 
     //Refrences
     public Camera fpsCam;
@@ -29,11 +32,12 @@ public class AIMove : MonoBehaviour
     //Attack Code end 
 
     //scripts
-    private TimeBody timeIsStopped;
+    private TimeBody TimeIsSlow;
 
     public NavMeshAgent agent;
 
     public Transform player;
+
 
     public LayerMask whatIsGround, whatIsPlayer;
 
@@ -42,10 +46,18 @@ public class AIMove : MonoBehaviour
     bool walkPointSet;
     public float walkPointRange;
 
+    //PATROL V2
+    public Vector3 PatrolPoint;
+    public Transform[] waypoints;
+    int waypointIndex;
+    Vector3 Target;
+
     //Attacking 
     public float timeBetweenAttacks;
+    public float DefualtAttackTime;
     bool alreadyAttacked;
     public float TimeSlow;
+    public float TimeStop;
     //States
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
@@ -53,65 +65,154 @@ public class AIMove : MonoBehaviour
     // time stop
 
     private TimeManager timemanager;
+
+    private bool delay;
+    private float delayTimer = 10;
+
+    public float Speed;
+    
+    public float chaseSpeed;
+
+    public Animator animator;
+
+    private float animRecordedVelocity;
+
+    private float airecordedvelocity;
+    private float aiRecordedRotation;
+
+    private Vector3 slowedrotation;
+    private Vector3 nrotation;
+    private float rotatespeed = 10f;
+    
+
     private void Awake()
     {
-        player = GameObject.Find("Player").transform;
+       // player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
 
     }
      void Start()
     {
+        //Refrence to NAvmesh agent so the AI can navigate the navmesh
         agent = GetComponent<NavMeshAgent>();
-        //player = GameObject.FindGameObjectWithTag("Player");
+        //Invoke("patrolingWalkPoint", 2);
         timemanager = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
+        agent.speed = Speed;
     }
     // Update is called once per frame
     void Update()
     {
-        // if Time Is not stopped then
-        if (!timemanager.TimeIsStopped)
+        if (GameObject.FindGameObjectWithTag("Player"))
         {
-            Debug.Log("TimeOff");
-            timeBetweenAttacks = 0.2f;
-            agent.speed = 20;
-
-            agent.SetDestination(player.transform.position);  //go to player
-
-           if (agent.remainingDistance <= agent.stoppingDistance)
-            {
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position), 10f * Time.deltaTime); //Look at player
-                
-            }
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+            
         }
-        // if time is stopped then
-        if (timemanager.TimeIsStopped)
+        else 
         {
-            Debug.Log("TimeOn");
-            agent.speed *= TimeSlow;
-            agent.velocity *= TimeSlow; // stop moving
-            //agent.updateRotation = false;
+            player = null;
+        }
+
+        //Debug.Log("Agent Velocity" + agent.velocity);
+        //Debug.Log("Agent acceleration" + agent.acceleration);
+
+        
+
+        // if Time Is not stopped then
+        if (!timemanager.TimeIsSlow && !timemanager.isRewinding)
+        {
+            animator.SetFloat("Speed", agent.velocity.magnitude);
+            animRecordedVelocity = agent.velocity.magnitude;
+
+            timeBetweenAttacks = DefualtAttackTime;
+            agent.speed = Speed;
+            //agent.velocity = agent.velocity;
+            //agent.acceleration = agent.acceleration;
+            //agent.updateRotation = true;
+            //agent.angularSpeed = 120;
+            slowedrotation = nrotation;
+        }
+
+        // if time is slow then
+        if (timemanager.TimeIsSlow)
+        {
+            animator.SetFloat("Speed", animRecordedVelocity);
+            agent.speed = TimeSlow;
+            //agent.velocity =  agent.velocity * TimeSlow;
+            //agent.acceleration = agent.acceleration * TimeSlow; // stop moving
+             slowedrotation = slowedrotation * TimeSlow;
             //Debug.Log("STOPPED");
             timeBetweenAttacks = 3;
+            agent.angularSpeed = 30;
+        }
+
+        // if time is reversed then
+        if(timemanager.isRewinding)
+        {
+           
+            //Slows speed, rotation and increase timeBetweenAttacks so that can't shoot during the time the player reverses time
+            agent.speed = TimeStop;
+            agent.updateRotation = false;
+            timeBetweenAttacks = 200;
+            delay = true;
+            //agent.velocity *= TimeStop;
+            // agent.acceleration = TimeStop; // stop moving
+
+
+        }
+        else 
+        {
+            Checkdelay();
+            agent.updateRotation = true;
         }
         
         
             
-            //Normal Movement
+            //AI Movement
             playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
             playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-            if (!playerInSightRange && !playerInAttackRange) patroling();
-            if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-            if (playerInSightRange && playerInAttackRange) AttackPlayer();
-        
+        //if player is not in FOV then Patrol
+        if (fov.IsSeen == false && !playerInAttackRange && delay == false) patroling();
+        //If the player is Seen then emey moves to attack range
+        if (fov.IsSeen == true && !playerInAttackRange && delay == false) ChasePlayer();
+        //when in attack range, Shoot the player
+        if (fov.IsSeen == true && playerInAttackRange && delay == false) AttackPlayer();
 
-       
+
+
 
     }
-
     void patroling() 
     {
-        //Debug.Log("WALKING AROUND");
+        if(animator.GetBool("isShooting") == true) 
+        {
+            animator.SetBool("isShooting", false);
+        }
+
+        Invoke("patrolingWalkPoint", 0);
+        // IF distance is less than 1 then update patrol information
+        if (Vector3.Distance(transform.position, Target) < 3) 
+        {
+          
+            //This code makes the Ai stop for a few seconds before 
+            // moving to the next target
+            Invoke("IterateWaypointIndex", 10);
+            Invoke("patrolingWalkPoint", 10);
+
+
+            //IterateWaypointIndex();
+            //patrolingWalkPoint();
+
+        }
+
+  
+
+
+    }
+    void Randompatroling() 
+    {
+       // Debug.Log("WALKING AROUND");
         if (!walkPointSet) SearchWalkPoint();
 
         if (walkPointSet) 
@@ -126,8 +227,11 @@ public class AIMove : MonoBehaviour
 
     }
 
+   
+
     void SearchWalkPoint() 
     {
+        Debug.Log(walkPoint);
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
 
@@ -137,36 +241,94 @@ public class AIMove : MonoBehaviour
             walkPointSet = true;
     }
 
-    void ChasePlayer() 
+    void patrolingWalkPoint() 
+    {
+        Target = waypoints[waypointIndex].position;
+
+        if (Vector3.Distance(transform.position, Target) > 3)
+        {//This code stops the AI constantly moving towards the target when I want it to stop in place
+         //without this code the object will just spin when it reaches the target and stops(It does happen a bit still but at a very reduced rate)
+            agent.SetDestination(Target);  
+        }
+        if (Vector3.Distance(transform.position, Target) < 3)
+        {
+            agent.SetDestination(new Vector3(0f, 0f, 0f));
+        }
+
+        CancelInvoke("patrolingWalkPoint");
+    }
+
+    void IterateWaypointIndex() 
     {
         
-            agent.SetDestination(player.position);
-             //Debug.Log("CHASING PLAYER");
-           // Debug.Log("Off Sight =" + sightRange);
-       
+        //Increase waypoint index by 1
+        waypointIndex++;
+        // Resets waypoints back to zero
+        if(waypointIndex == waypoints.Length) 
+        {
+            waypointIndex = 0;
+        }
+
+        CancelInvoke("IterateWaypointIndex");
+    }
+
+    void ChasePlayer() 
+    {
+        animator.SetBool("isShooting", false);
+
+        agent.SetDestination(player.position);
+          // Debug.Log("CHASING PLAYER");
+         //Debug.Log("Off Sight =" + sightRange);
+        // Debug.Log(player.position);
+
+        agent.SetDestination(player.transform.position);  //go to player
+
+       // agent.speed = chaseSpeed;
+        if (agent.remainingDistance <= agent.stoppingDistance)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position), 10f * Time.deltaTime); //Look at player
+
+        }
+
 
     }
 
     void AttackPlayer() 
     {
 
-        agent.SetDestination(transform.position);
-
-        transform.LookAt(player);
-    
-
-        if(!alreadyAttacked)
+        if(timemanager.isRewinding == false && delay == false) 
         {
-            //attack code
+            animator.SetBool("isShooting", true);
 
-            shoot();
+            //rotatespeed = 0.3f;
+            Vector3 direction = player.position;
+            Quaternion toRotation = Quaternion.FromToRotation(transform.forward, direction);
+            transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, rotatespeed * Time.deltaTime);
+           
+            agent.SetDestination(transform.position);
+            transform.LookAt(direction);
 
-            //Debug.Log("PlayerIsAttacked");
+            if(timemanager.TimeIsSlow == true) 
+            {
+                //transform.LookAt(player);
+                //rotatespeed = 1f;
+            }
+           // Debug.Log("Player is looked at");
 
-            alreadyAttacked = true;
-            Invoke(nameof(resetAttack), timeBetweenAttacks);
+            if (!alreadyAttacked)
+            {
+                //attack code
 
+                //Debug.Log("player is shot");
+
+                shoot();
+
+                alreadyAttacked = true;
+                Invoke(nameof(resetAttack), timeBetweenAttacks);
+
+            }
         }
+      
     
     }
 
@@ -205,22 +367,29 @@ public class AIMove : MonoBehaviour
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, attackPoint.rotation);
         
 
-        currentBullet.GetComponent<Rigidbody>().velocity = currentBullet.transform.forward * shootForce;
+        currentBullet.GetComponent<Rigidbody>().velocity = currentBullet.transform.forward * shootForce + directionWithSpread;
         //Roatate Bullet in shoot direction
-        
 
-
-
- 
-            
+        //play sound of enemy gun shot
+        FindObjectOfType<audiomanager>().Play("Enemy Rifle shot");
 
 
     }
 
-
-
-
-
-
+    void Checkdelay() 
+    {
+      
+        if (timemanager.isRewinding == false && delay == true)
+        {
+            
+            Invoke("playdelay", 0.8f);
+        }
+    
+    }
+    void playdelay() 
+    {
+        //Debug.Log("Delay Played");
+        delay = false;
+    }
 
 }

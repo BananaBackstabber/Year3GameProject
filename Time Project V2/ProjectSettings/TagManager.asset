@@ -6,6 +6,18 @@ TagManager:
   tags:
   - TimeManager
   - Hit
+  - Spawn_Location
+  - Win_Condition
+  - UIHealth
+  - UITime
+  - Power_selecter
+  - Plan_UI
+  - Plan_UI2
+  - Laser
+  - Ground
+  - Audio
+  - Processer
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -14,16 +26,16 @@ TagManager:
   - Water
   - UI
   - FirstPerson
-  - GrayscaleLayers
+  - WayPoint
   - ground
   - Enemies
   - Bullets
   - MainCam
   - Ai Bullets
-  - 
-  - 
-  - 
-  - 
+  - Roof
+  - Top_Cam_Only
+  - Glass
+  - Trap
   - 
   - 
   - 

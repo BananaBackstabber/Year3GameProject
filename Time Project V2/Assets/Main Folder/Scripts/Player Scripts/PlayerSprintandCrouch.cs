@@ -39,11 +39,11 @@ public class PlayerSprintandCrouch : MonoBehaviour
         //    IS leftShift key is down        and is not Crouching
         if(Input.GetKeyDown(KeyCode.LeftShift) && !is_Crouching)
         {
-            PlayerMove.speed = sprint_Speed;
+            PlayerMove.currentspeed = sprint_Speed;
         }
 
         if(Input.GetKeyUp(KeyCode.LeftShift) && !is_Crouching) {
-            PlayerMove.speed = move_Speed;
+            PlayerMove.currentspeed = move_Speed;
         }
     }
 
@@ -55,13 +55,13 @@ public class PlayerSprintandCrouch : MonoBehaviour
             if (is_Crouching)
             {
                 look_Root.localPosition = new Vector3(0f, stand_Height, 0f);
-                PlayerMove.speed = move_Speed;
+                PlayerMove.currentspeed = move_Speed;
 
                 is_Crouching = false;
             } else {
                 // is we are  not crouching, crouch
                 look_Root.localPosition = new Vector3(0f, crouch_Height, 0f);
-                PlayerMove.speed = crouch_Speed;
+                PlayerMove.currentspeed = crouch_Speed;
 
                 is_Crouching = true;
             }
