@@ -14,11 +14,11 @@ public class PowerPickUp : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")//If player collides
         {
             FindObjectOfType<audiomanager>().Play("Recharge Power Pick Up");
-            timemanager.TimeGauge += TimeBack;
-            Destroy(gameObject);
+            timemanager.TimeGauge += TimeBack;// add time to time gauge
+            Destroy(gameObject);//Destroy self
         }
     }
 }

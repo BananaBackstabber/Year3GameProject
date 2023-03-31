@@ -33,20 +33,22 @@ public class TimeStopAnimtor : MonoBehaviour
             CanBeAffected = true; // Will be affected by timestop
         }
 
-        if (CanBeAffected && timemanager.TimeIsSlow && !IsStopped)
+        if (CanBeAffected && timemanager.TimeIsSlow 
+            && !IsStopped)
         {
-
+            //If slow time is on...Slow animation
             slowTime.speed = SlowSpeed;
            
         }
-        else if(CanBeAffected && timemanager.isRewinding && !IsStopped)
+        else if(CanBeAffected && timemanager.isRewinding 
+                && !IsStopped)
         {
-
+            //If reverse time is on Reverse animation
             slowTime.speed = StopSpeed;
         }
         else 
         {
-
+            //else speed if normal
             slowTime.speed = NormalSpeed;
         }
     }

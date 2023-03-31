@@ -40,8 +40,10 @@ public class Enemy_Health : MonoBehaviour
 
             if (spawncont == 0)// spawns recharge power up once
             {
-                Instantiate(timePickUp, transform.position + new Vector3(0f, 1f, 0f), Quaternion.identity);
-                spawncont += 1;
+                //Spawn the object
+                Instantiate(timePickUp, transform.position + new Vector3(0f, 1f, 0f),
+                Quaternion.identity);
+                spawncont += 1;// stops it continuously spawning
             }
 
             Invoke("Death", 20);
